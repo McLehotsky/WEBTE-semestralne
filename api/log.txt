@@ -1,0 +1,8 @@
+nohup: ignoring input
+INFO:     Will watch for changes in these directories: ['/var/www/WEBTE-semestralne/api']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [392209] using StatReload
+INFO:     Started server process [392212]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60812 - "GET / HTTP/1.0" 200 OK

@@ -1,0 +1,122 @@
+from pypdf import PdfMerger, PdfReader, PdfWriter
+import tempfile
+
+# 1. Merge two PDFs
+def merge_pdfs(file1, file2):
+    merger = PdfMerger()
+    merger.append(file1)
+    merger.append(file2)
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    merger.write(output.name)
+    merger.close()
+    return output.name
+
+# 2. Delete selected pages (comma-separated: "0,2,4")
+def delete_pages(file, pages):
+    reader = PdfReader(file)
+    writer = PdfWriter()
+    to_delete = sorted(set(int(p.strip()) for p in pages.split(",")))
+    for i in range(len(reader.pages)):
+        if i not in to_delete:
+            writer.add_page(reader.pages[i])
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 3. Reorder pages (e.g., "2,0,1")
+def reorder_pages(file, order):
+    reader = PdfReader(file)
+    writer = PdfWriter()
+    sequence = [int(p.strip()) for p in order.split(",")]
+    for i in sequence:
+        writer.add_page(reader.pages[i])
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 4. Extract selected pages (e.g., "0,2")
+def extract_pages(file, pages):
+    reader = PdfReader(file)
+    writer = PdfWriter()
+    for p in pages.split(","):
+        writer.add_page(reader.pages[int(p.strip())])
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 5. Split PDF (return list of file paths)
+def split_pdf(file):
+    reader = PdfReader(file)
+    output_paths = []
+    for i, page in enumerate(reader.pages):
+        writer = PdfWriter()
+        writer.add_page(page)
+        temp = tempfile.NamedTemporaryFile(delete=False, suffix=f"_page_{i}.pdf")
+        with open(temp.name, "wb") as f:
+            writer.write(f)
+        output_paths.append(temp.name)
+    return output_paths
+
+# 6. Rotate selected pages (e.g., pages="0,2", angle=90)
+def rotate_pages(file, pages, angle):
+    reader = PdfReader(file)
+    writer = PdfWriter()
+    rotate_set = set(int(p.strip()) for p in pages.split(","))
+    for i, page in enumerate(reader.pages):
+        if i in rotate_set:
+            page.rotate(angle)
+        writer.add_page(page)
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 7. Add a page from one PDF into another at a specific position
+def add_page(base_file, insert_file, position):
+    base_reader = PdfReader(base_file)
+    insert_reader = PdfReader(insert_file)
+    writer = PdfWriter()
+    for i in range(len(base_reader.pages)):
+        if i == position:
+            writer.add_page(insert_reader.pages[0])
+        writer.add_page(base_reader.pages[i])
+    if position >= len(base_reader.pages):
+        writer.add_page(insert_reader.pages[0])
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 8. Extract plain text from PDF
+def extract_text_from_pdf(file):
+    reader = PdfReader(file)
+    text = "\n".join([page.extract_text() or "" for page in reader.pages])
+    return text
+
+# 9. Add password to PDF
+def encrypt_pdf(file, password):
+    reader = PdfReader(file)
+    writer = PdfWriter()
+    for page in reader.pages:
+        writer.add_page(page)
+    writer.encrypt(password)
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
+
+# 10. Remove password from PDF
+def decrypt_pdf(file, password):
+    reader = PdfReader(file)
+    if reader.is_encrypted:
+        reader.decrypt(password)
+    writer = PdfWriter()
+    for page in reader.pages:
+        writer.add_page(page)
+    output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
+    with open(output.name, "wb") as f:
+        writer.write(f)
+    return output.name
