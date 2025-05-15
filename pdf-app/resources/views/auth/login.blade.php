@@ -44,7 +44,7 @@
             </x-primary-button>
         </div>
     </form>
-    <div class="mt-4">
+    <div class="mt-4 mx-auto">
         <a href="{{ route('google.login') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-100">
             <svg class="w-5 h-5 mr-2" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
                 <path d="M533.5 278.4c0-17.4-1.6-34.1-4.7-50.3H272v95.1h147.1c-6.3 34.1-25.1 62.9-53.5 82.2v68h86.4c50.6-46.6 81.5-115.3 81.5-195z" fill="#4285F4"/>
