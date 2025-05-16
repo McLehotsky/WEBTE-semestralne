@@ -49,7 +49,4 @@
             </x-primary-button>
         </div>
     </form>
-    <div>
-        <p>Ahojte</p>
-    </div>
 </x-guest-layout>

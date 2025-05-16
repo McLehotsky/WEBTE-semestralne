@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfExportController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +25,13 @@ require __DIR__.'/auth.php';
 // Google Authentication Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
+// Added Static Pages
+Route::view('/guide', 'guide.index')->name('guide');
+Route::view('/documentation', 'documentation')->name('documentation');
+Route::view('/history-usage', 'history-usage')->name('history.usage');
+Route::view('/history-login', 'history-login')->name('history.login');
+
+
+//to export the guide as PDF
+Route::get('/guide/export', [PdfExportController::class, 'exportPdf'])->name('guide.export');
