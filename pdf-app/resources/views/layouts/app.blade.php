@@ -13,6 +13,15 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            @media print {
+                .no-print {
+                    display: none !important;
+                }
+            }
+        </style>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

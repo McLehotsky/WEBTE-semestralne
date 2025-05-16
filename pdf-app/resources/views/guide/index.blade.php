@@ -5,18 +5,13 @@
 
     <div class="max-w-6xl mx-auto py-10 px-6 space-y-8">
 
-        <!-- Export Button (aktivuj ak bude hotový export) -->
-        <!--
-        <div class="flex justify-end mb-4">
-            <a href="{{ route('guide.export') }}"
-               class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow">
-                📄 Exportovať príručku do PDF
-            </a>
-        </div>
-        -->
+    <!-- Added the Export button, works with browser printer -->
+    <div class="flex justify-end mb-4 no-print">
+        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow">
+            Exportovať príručku do PDF
+        </button>
+    </div>
         @include('guide.sections.frontend')
-        <hr>
         @include('guide.sections.backend')
-
     </div>
 </x-app-layout>

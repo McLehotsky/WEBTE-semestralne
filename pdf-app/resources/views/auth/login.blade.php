@@ -43,6 +43,17 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+
+        <!-- Added the Register button -->
+        <div class="flex items-center justify-end mt-4">
+            <span class="text-sm text-gray-600 me-2">No account yet?</span>
+            <a href="{{ route('register') }}">
+                <x-primary-button class="ms-2">
+                    {{ __('Register') }}
+                </x-primary-button>
+            </a>
+        </div>
+
     </form>
     <div class="flex justify-center mt-4">
         <a href="{{ route('google.login') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-100">
@@ -55,7 +66,5 @@
             Prihlásiť sa cez Google
         </a>
     </div>
-
-
 
 </x-guest-layout>
