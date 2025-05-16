@@ -1,0 +1,70 @@
+services:
+  laravel:
+    build:
+      context: ./pdf-app
+    volumes:
+      - ./pdf-app:/var/www
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mysql
+    networks:
+      - internal
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: pdfapp
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+
+  fastapi:
+    build:
+      context: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"
+    networks:
+      - internal
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pdfapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"  # voliteľné, ak chceš použiť GUI klienty ako DBeaver
+    networks:
+      - internal
+
+  vite:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./pdf-app:/app
+    networks:
+      - internal
+    command: tail -f /dev/null
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
+    networks:
+      - internal
+
+volumes:
+  mysql-data:
+
+networks:
+  internal:
