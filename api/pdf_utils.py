@@ -83,17 +83,27 @@ def split_pdf_to_zip(file, chunk_size):
     return zip_path
 
 # 6. Rotate selected pages (e.g., pages="0,2", angle=90)
-def rotate_pages(file, pages, angle):
+def rotate_pages_individual(file, rotations: str):
     reader = PdfReader(file)
     writer = PdfWriter()
-    rotate_set = set(int(p.strip()) for p in pages.split(","))
+
+    # Parse string: "0:90,1:-90" → {0: 90, 1: -90}
+    rotation_map = {}
+    for pair in rotations.split(","):
+        if ":" not in pair:
+            continue
+        page_str, angle_str = pair.split(":")
+        rotation_map[int(page_str.strip())] = int(angle_str.strip())
+
     for i, page in enumerate(reader.pages):
-        if i in rotate_set:
-            page.rotate(angle)
+        if i in rotation_map:
+            page.rotate(rotation_map[i])
         writer.add_page(page)
+
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     with open(output.name, "wb") as f:
         writer.write(f)
+
     return output.name
 
 # 7. Add a page from one PDF into another at a specific position
