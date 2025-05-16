@@ -108,8 +108,8 @@ async def add_page_endpoint(
 async def extract_text(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")]
 ):
-    text = pdf_utils.extract_text_from_pdf(file.file)
-    return JSONResponse(content={"text": text})
+    output_path = pdf_utils.extract_text_from_pdf(file.file)
+    return FileResponse(output_path, media_type="text/plain", filename="extracted.txt")
 
 
 @app.post("/encrypt", summary="Encrypt PDF", description="Zašifruje PDF súbor zadaným heslom.")
