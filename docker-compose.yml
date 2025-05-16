@@ -1,0 +1,46 @@
+version: "3.9"
+
+services:
+  laravel:
+    build:
+      context: ./pdf-app
+    volumes:
+      - ./pdf-app:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - internal
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: pdfapp
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+
+  fastapi:
+    build:
+      context: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"  # NGINX na serveri sa pripája sem
+    networks:
+      - internal
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: pdfapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - internal
+
+volumes:
+  mysql-data:
+
+networks:
+  internal:
