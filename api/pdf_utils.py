@@ -1,14 +1,24 @@
 from pypdf import PdfMerger, PdfReader, PdfWriter
 import tempfile
+import zipfile
+import os
 
 # 1. Merge two PDFs
 def merge_pdfs(file1, file2):
-    merger = PdfMerger()
-    merger.append(file1)
-    merger.append(file2)
+    file1.seek(0)
+    file2.seek(0)
+
+    writer = PdfWriter()
+
+    for f in [file1, file2]:
+        reader = PdfReader(f)
+        for page in reader.pages:
+            writer.add_page(page)
+
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-    merger.write(output.name)
-    merger.close()
+    with open(output.name, "wb") as out_f:
+        writer.write(out_f)
+
     return output.name
 
 # 2. Delete selected pages (comma-separated: "0,2,4")
@@ -48,30 +58,52 @@ def extract_pages(file, pages):
     return output.name
 
 # 5. Split PDF (return list of file paths)
-def split_pdf(file):
+def split_pdf_to_zip(file, chunk_size):
     reader = PdfReader(file)
-    output_paths = []
-    for i, page in enumerate(reader.pages):
+    total_pages = len(reader.pages)
+
+    temp_dir = tempfile.mkdtemp()
+    pdf_paths = []
+
+    for i in range(0, total_pages, chunk_size):
         writer = PdfWriter()
-        writer.add_page(page)
-        temp = tempfile.NamedTemporaryFile(delete=False, suffix=f"_page_{i}.pdf")
-        with open(temp.name, "wb") as f:
+        for j in range(i, min(i + chunk_size, total_pages)):
+            writer.add_page(reader.pages[j])
+
+        part_path = os.path.join(temp_dir, f"part_{i//chunk_size + 1}.pdf")
+        with open(part_path, "wb") as f:
             writer.write(f)
-        output_paths.append(temp.name)
-    return output_paths
+        pdf_paths.append(part_path)
+
+    zip_path = tempfile.NamedTemporaryFile(delete=False, suffix=".zip").name
+    with zipfile.ZipFile(zip_path, "w") as zipf:
+        for path in pdf_paths:
+            zipf.write(path, arcname=os.path.basename(path))
+
+    return zip_path
 
 # 6. Rotate selected pages (e.g., pages="0,2", angle=90)
-def rotate_pages(file, pages, angle):
+def rotate_pages_individual(file, rotations: str):
     reader = PdfReader(file)
     writer = PdfWriter()
-    rotate_set = set(int(p.strip()) for p in pages.split(","))
+
+    # Parse string: "0:90,1:-90" → {0: 90, 1: -90}
+    rotation_map = {}
+    for pair in rotations.split(","):
+        if ":" not in pair:
+            continue
+        page_str, angle_str = pair.split(":")
+        rotation_map[int(page_str.strip())] = int(angle_str.strip())
+
     for i, page in enumerate(reader.pages):
-        if i in rotate_set:
-            page.rotate(angle)
+        if i in rotation_map:
+            page.rotate(rotation_map[i])
         writer.add_page(page)
+
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     with open(output.name, "wb") as f:
         writer.write(f)
+
     return output.name
 
 # 7. Add a page from one PDF into another at a specific position
