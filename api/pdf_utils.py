@@ -3,12 +3,20 @@ import tempfile
 
 # 1. Merge two PDFs
 def merge_pdfs(file1, file2):
-    merger = PdfMerger()
-    merger.append(file1)
-    merger.append(file2)
+    file1.seek(0)
+    file2.seek(0)
+
+    writer = PdfWriter()
+
+    for f in [file1, file2]:
+        reader = PdfReader(f)
+        for page in reader.pages:
+            writer.add_page(page)
+
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
-    merger.write(output.name)
-    merger.close()
+    with open(output.name, "wb") as out_f:
+        writer.write(out_f)
+
     return output.name
 
 # 2. Delete selected pages (comma-separated: "0,2,4")
