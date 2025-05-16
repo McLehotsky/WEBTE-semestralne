@@ -4,7 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfExportController;
-
+use App\Http\Controllers\PdfMergeController;
+use App\Http\Controllers\PdfEncryptController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,3 +36,12 @@ Route::view('/history-login', 'history-login')->name('history.login');
 
 //to export the guide as PDF
 Route::get('/guide/export', [PdfExportController::class, 'exportPdf'])->name('guide.export');
+
+// PDF Merge Routes
+Route::get('/merge', function () {return view('pdf.merge');})->middleware('auth')->name('pdf.merge');
+Route::post('/merge', [PdfMergeController::class, 'upload'])->middleware('auth')->name('pdf.merge.upload');
+
+// PDF Encrypt Routes
+Route::view('/encrypt', 'pdf.encrypt')->name('pdf.encrypt');
+Route::post('/encrypt', [PdfEncryptController::class, 'encrypt'])->name('pdf.encrypt.upload');
+    

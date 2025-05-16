@@ -6,6 +6,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Login;
 
 class GoogleAuthController extends Controller
 {
@@ -27,6 +28,8 @@ class GoogleAuthController extends Controller
         );
 
         Auth::login($user);
+
+        event(new Login('web', $user, false));
 
         return redirect()->intended('/dashboard');
     }
