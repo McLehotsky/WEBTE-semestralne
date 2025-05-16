@@ -124,9 +124,16 @@ def add_page(base_file, insert_file, position):
 
 # 8. Extract plain text from PDF
 def extract_text_from_pdf(file):
+    file.seek(0)
     reader = PdfReader(file)
     text = "\n".join([page.extract_text() or "" for page in reader.pages])
-    return text
+
+    # Ulož text do dočasného .txt súboru
+    temp = tempfile.NamedTemporaryFile(delete=False, suffix=".txt", mode="w", encoding="utf-8")
+    temp.write(text)
+    temp.close()
+
+    return temp.name
 
 # 9. Add password to PDF
 def encrypt_pdf(file, password):
