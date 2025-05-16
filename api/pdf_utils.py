@@ -1,5 +1,7 @@
 from pypdf import PdfMerger, PdfReader, PdfWriter
 import tempfile
+import zipfile
+import os
 
 # 1. Merge two PDFs
 def merge_pdfs(file1, file2):
@@ -56,17 +58,29 @@ def extract_pages(file, pages):
     return output.name
 
 # 5. Split PDF (return list of file paths)
-def split_pdf(file):
+def split_pdf_to_zip(file, chunk_size):
     reader = PdfReader(file)
-    output_paths = []
-    for i, page in enumerate(reader.pages):
+    total_pages = len(reader.pages)
+
+    temp_dir = tempfile.mkdtemp()
+    pdf_paths = []
+
+    for i in range(0, total_pages, chunk_size):
         writer = PdfWriter()
-        writer.add_page(page)
-        temp = tempfile.NamedTemporaryFile(delete=False, suffix=f"_page_{i}.pdf")
-        with open(temp.name, "wb") as f:
+        for j in range(i, min(i + chunk_size, total_pages)):
+            writer.add_page(reader.pages[j])
+
+        part_path = os.path.join(temp_dir, f"part_{i//chunk_size + 1}.pdf")
+        with open(part_path, "wb") as f:
             writer.write(f)
-        output_paths.append(temp.name)
-    return output_paths
+        pdf_paths.append(part_path)
+
+    zip_path = tempfile.NamedTemporaryFile(delete=False, suffix=".zip").name
+    with zipfile.ZipFile(zip_path, "w") as zipf:
+        for path in pdf_paths:
+            zipf.write(path, arcname=os.path.basename(path))
+
+    return zip_path
 
 # 6. Rotate selected pages (e.g., pages="0,2", angle=90)
 def rotate_pages(file, pages, angle):

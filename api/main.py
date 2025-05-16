@@ -1,6 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, Form, Header, HTTPException, Depends
 from fastapi.responses import FileResponse, JSONResponse
 from typing import Annotated, Optional
+import tempfile
+import zipfile
+import os
 import pdf_utils
 
 app = FastAPI(
@@ -72,12 +75,14 @@ async def extract(
     return FileResponse(output_path, media_type="application/pdf", filename="extracted.pdf")
 
 
-@app.post("/split", summary="Split PDF into pages", description="Rozdelí PDF súbor na jednotlivé strany.")
+@app.post("/split", summary="Split PDF into chunks", description="Rozdelí PDF súbor na viacero častí s N stranami a vráti ZIP súbor so všetkými PDF.")
 async def split(
-    file: Annotated[UploadFile, File(description="Vstupný PDF súbor")]
+    file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
+    chunk_size: Annotated[int, Form(description="Počet strán na jednu časť (napr. 5 = každý výstup má 5 strán)")]
 ):
-    files = pdf_utils.split_pdf(file.file)
-    return JSONResponse(content={"message": "PDF rozdelený", "files": files})
+    file.file.seek(0)
+    zip_path = pdf_utils.split_pdf_to_zip(file.file, chunk_size)
+    return FileResponse(zip_path, media_type="application/zip", filename="split_pdf.zip")
 
 
 @app.post("/rotate", summary="Rotate selected pages", description="Otočí zvolené strany o daný uhol.")
