@@ -85,13 +85,12 @@ async def split(
     return FileResponse(zip_path, media_type="application/zip", filename="split_pdf.zip")
 
 
-@app.post("/rotate", summary="Rotate selected pages", description="Otočí zvolené strany o daný uhol.")
+@app.post("/rotate", summary="Rotate selected pages individually", description="Otočí zvolené strany s rôznymi uhlami. Formát: '0:90,1:-90'")
 async def rotate(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    pages: Annotated[str, Form(description="Strany na otočenie, napr. '0,2'")],
-    angle: Annotated[int, Form(description="Uhol otáčania v stupňoch, napr. 90")]
+    rotations: Annotated[str, Form(description="Strany a uhly, napr. '0:90,1:-90,2:180'")]
 ):
-    output_path = pdf_utils.rotate_pages(file.file, pages, angle)
+    output_path = pdf_utils.rotate_pages_individual(file.file, rotations)
     return FileResponse(output_path, media_type="application/pdf", filename="rotated.pdf")
 
 
