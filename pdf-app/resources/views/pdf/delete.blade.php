@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-8 rounded-lg shadow-md border-2 border-dashed border-gray-300 text-center">
-                <form id="delete-form" enctype="multipart/form-data">
+                <form id="delete-form" enctype="multipart/form-data" >
                     @csrf
 
                     <input type="file" name="file" id="file" class="hidden" accept="application/pdf" required>
@@ -28,7 +28,7 @@
                              class="grid grid-cols-3 gap-4 justify-items-center"></div>
                     </div>
                     <div class="text-center mt-6">
-                        <button id="delete-pages-btn"
+                        <button type="button" id="delete-pages-btn"
                                 class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded transition hidden">
                             Delete Selected Pages
                         </button>

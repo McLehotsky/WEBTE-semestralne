@@ -23,7 +23,7 @@ class PdfDeleteController extends Controller
             'timeout' => 20,
         ]);
 
-        $url = config('pdf.base_url') . '/decrypt';
+        $url = config('pdf.base_url') . '/delete';
 
         $response = $client->post($url, [
             'multipart' => [
