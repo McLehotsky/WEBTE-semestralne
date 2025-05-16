@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PdfMergeController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,3 +24,13 @@ require __DIR__.'/auth.php';
 // Google Authentication Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
+// PDF Merge Routes
+Route::get('/merge', function () {
+    return view('pdf.merge');
+})->middleware('auth')->name('pdf.merge');
+
+Route::post('/merge', [PdfMergeController::class, 'upload'])
+    ->middleware('auth')
+    ->name('pdf.merge.upload');
+
