@@ -1,11 +1,11 @@
-version: "3.9"
-
 services:
   laravel:
     build:
       context: ./pdf-app
     volumes:
       - ./pdf-app:/var/www
+    ports:
+      - "8001:8001"
     depends_on:
       - mysql
     networks:
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./api:/app
     ports:
-      - "8000:8000"  # NGINX na serveri sa pripája sem
+      - "8000:8000"
     networks:
       - internal
 
@@ -36,6 +36,30 @@ services:
       MYSQL_PASSWORD: pass
     volumes:
       - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"  # voliteľné, ak chceš použiť GUI klienty ako DBeaver
+    networks:
+      - internal
+
+  vite:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./pdf-app:/app
+    networks:
+      - internal
+    command: tail -f /dev/null
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    depends_on:
+      - mysql
     networks:
       - internal
 
