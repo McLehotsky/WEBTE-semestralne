@@ -1,0 +1,26 @@
+{
+    "vscode":
+    {
+      "docker compose up -d": "Spustí všetky kontajnery na pozadí",
+      "docker compose down": "Zastaví a vypne všetky kontajnery",
+      "docker compose up -d --build": "Znovu spustí a rebuildne kontajnery",
+      "docker compose exec laravel php artisan serve --host=0.0.0.0 --port=8001": "Spustí Laravel server na porte 8001",
+      "docker compose exec laravel php artisan migrate": "Spustí migrácie v databáze",
+      "docker-compose exec laravel php artisan key:generate": "Vygeneruje nový APP_KEY pre Laravel",
+      "docker compose exec laravel php artisan config:cache": "Vyčistí a cachene konfiguráciu",
+      "docker compose exec laravel php artisan db:seed": "Spustí seedovanie databázy",
+      "docker compose exec laravel php artisan tinker": "Spustí interaktívnu Laravel konzolu",
+      "docker compose exec laravel composer install": "Nainštaluje Composer balíky v Laraveli",
+      "docker compose exec vite npm install": "Nainštaluje Node balíky pre frontend (vite)",
+      "docker compose exec vite npm run build": "Buildne frontend (CSS/JS) cez vite",
+      "docker compose ps": "Zobrazí bežiace kontajnery",
+      "docker compose logs": "Vypíše logy zo všetkých kontajnerov",
+      "docker compose exec laravel bash": "Otvorí terminál v Laravel kontajneri",
+      "docker compose exec mysql bash": "Otvorí terminál v MySQL kontajneri"
+    },
+    "gitbash":
+    {
+      "docker compose exec mysql sh -c 'exec mysqldump --no-tablespaces -uroot -proot pdfapp' > db-dump.sql": "Export databázy do súboru db-dump.sql",
+      "docker compose exec -T mysql mysql -uroot -proot pdfapp < db-dump.sql": "Import databázy zo súboru db-dump.sql do kontajnera"
+    }
+}
