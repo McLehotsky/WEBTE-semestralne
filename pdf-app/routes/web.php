@@ -5,6 +5,7 @@ use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PdfMergeController;
 use App\Http\Controllers\PdfEncryptController;
+use App\Http\Controllers\PdfDecryptController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +35,6 @@ Route::post('/merge', [PdfMergeController::class, 'upload'])->middleware('auth')
 Route::view('/encrypt', 'pdf.encrypt')->name('pdf.encrypt');
 Route::post('/encrypt', [PdfEncryptController::class, 'encrypt'])->name('pdf.encrypt.upload');
     
+// PDF Decrypt Routes
+Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
+Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
