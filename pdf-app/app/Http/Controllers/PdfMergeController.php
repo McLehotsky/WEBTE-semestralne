@@ -16,8 +16,10 @@ class PdfMergeController extends Controller
         ]);
     
         $client = new \GuzzleHttp\Client();
+
+        $url = config('pdf.base_url') . '/merge';
     
-        $response = $client->post('https://node23.webte.fei.stuba.sk/api/pdf/merge', [
+        $response = $client->post($url, [
             'multipart' => [
                 [
                     'name'     => 'file1',
