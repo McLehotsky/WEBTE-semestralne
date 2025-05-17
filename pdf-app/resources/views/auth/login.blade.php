@@ -44,17 +44,18 @@
             </x-primary-button>
         </div>
 
-        <!-- Added the Register button -->
-        <div class="flex items-center justify-end mt-4">
-            <span class="text-sm text-gray-600 me-2">No account yet?</span>
-            <a href="{{ route('register') }}">
-                <x-primary-button class="ms-2">
-                    {{ __('Register') }}
-                </x-primary-button>
-            </a>
-        </div>
-
     </form>
+
+    <!-- Fixed the placement outside of the form -->
+    <!-- Added the Register button -->
+     <div class="flex items-center justify-end mt-4">
+        <span class="text-sm text-gray-600 me-2">No account yet?</span>
+        <a href="{{ route('register') }}">
+            <x-primary-button class="ms-2">
+                    {{ __('Register') }}
+             </x-primary-button>
+         </a>
+    </div>
     <div class="flex justify-center mt-4">
         <a href="{{ route('google.login') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-100">
             <svg class="w-5 h-5 mr-2" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
