@@ -14,6 +14,8 @@ use App\Http\Controllers\EditHistoryController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PdfDeleteController;
 use App\Http\Controllers\PdfExtractController;
+
+use App\Http\Controllers\PdfRotateController;
 use App\Http\Controllers\PdfReorderController;
 use App\Http\Controllers\PdfSplitController;
 use App\Http\Controllers\PdfTextExtractController;
@@ -55,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/edit-history/actions', [EditHistoryController::class, 'bulkAction'])->name('history.usage.action');
 
 
-    //to export the guide as PDF
+    //Export the guide as PDF
     Route::get('/guide/export', [PdfExportController::class, 'exportPdf'])->name('guide.export');
 
     // PDF Merge Routes
@@ -69,6 +71,13 @@ Route::middleware('auth')->group(function () {
     // PDF Decrypt Routes
     Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
     Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
+
+
+    // PDF Rotate Routes
+    Route::get('/rotate', [PdfRotateController::class, 'show'])->name('pdf.rotate');
+    Route::post('/rotate', [PdfRotateController::class, 'rotate']);
+
+
 
     // PDF Delete Routes
     Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
@@ -89,6 +98,7 @@ Route::middleware('auth')->group(function () {
     // PDF Text Extract Routes
     Route::view('/extract-text', 'pdf.extract-text')->name('pdf.extract-text');
     Route::post('/extract-text/upload', [PdfTextExtractController::class, 'extract'])->name('pdf.extract-text.upload');
+
 });
 
 require __DIR__.'/auth.php';
