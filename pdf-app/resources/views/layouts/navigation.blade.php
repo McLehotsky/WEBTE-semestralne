@@ -24,9 +24,6 @@
                             {{ __('Používateľská príručka') }}
                         </x-nav-link>
 
-                        <x-nav-link :href="route('documentation')" :active="request()->routeIs('documentation')">
-                            {{ __('Dokumentácia') }}
-                        </x-nav-link>
                     @if(Auth::user()->is_admin)
 
                     <!-- Added -->
@@ -45,12 +42,12 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('history.login')">
-                                    {{ __('História prihlásení') }}
+                                <x-dropdown-link :href="route('login.history')">
+                                    {{ __('prihlásení') }}
                                 </x-dropdown-link>
 
-                                <x-dropdown-link :href="route('history.usage')">
-                                    {{ __('História použitia') }}
+                                <x-dropdown-link :href="route('edit.history')">
+                                    {{ __('použitia') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
@@ -120,20 +117,16 @@
                 {{ __('Používateľská príručka') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('documentation')" :active="request()->routeIs('documentation')">
-                {{ __('Dokumentácia') }}
-            </x-responsive-nav-link>
-
             @if(Auth::user()->is_admin)
                 <span class="block px-4 py-2 text-sm text-gray-500 font-semibold">
                     {{ __('História') }}
                 </span>
 
-                <x-responsive-nav-link :href="route('history.login')" :active="request()->routeIs('history.login')">
+                <x-responsive-nav-link :href="route('login.history')" :active="request()->routeIs('login.history')">
                     {{ __('História prihlásení') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('history.usage')" :active="request()->routeIs('history.usage')">
+                <x-responsive-nav-link :href="route('edit.history')" :active="request()->routeIs('edit.history')">
                     {{ __('História použitia') }}
                 </x-responsive-nav-link>
             @endif

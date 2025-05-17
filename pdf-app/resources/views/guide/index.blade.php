@@ -11,6 +11,13 @@
             Exportovať príručku do PDF
         </button>
     </div>
+    <!-- Button to view documentation -->
+        <div class="flex justify-end no-print">
+            <a href="{{ route('documentation') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded shadow">
+                Zobraziť dokumentáciu
+            </a>
+        </div>
+
         @include('guide.sections.frontend')
         @include('guide.sections.backend')
     </div>
