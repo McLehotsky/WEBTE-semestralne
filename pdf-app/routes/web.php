@@ -8,6 +8,7 @@ use App\Http\Controllers\PdfMergeController;
 use App\Http\Controllers\PdfEncryptController;
 use App\Http\Controllers\PdfDecryptController;
 use App\Http\Controllers\PdfDeleteController;
+use App\Http\Controllers\PdfExtractController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,3 +55,8 @@ Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.dec
 // PDF Delete Routes
 Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
 Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete.upload');
+
+// PDF Extract Routes
+Route::view('/extract', 'pdf.extract')->name('pdf.extract');
+Route::post('/extract/upload', [PdfExtractController::class, 'upload'])->name('pdf.extract.upload');
+
