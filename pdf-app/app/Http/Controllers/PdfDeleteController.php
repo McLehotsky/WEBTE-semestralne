@@ -5,38 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class PdfEncryptController extends Controller
+class PdfDeleteController extends Controller
 {
-    public function encrypt(Request $request)
+    public function show()
+    {
+        return view('pdf.delete');
+    }
+
+    public function delete(Request $request)
     {
         $request->validate([
             'file' => 'required|file|mimes:pdf',
-            'password' => 'required|string|min:3',
+            'pages' => 'required|string'
         ]);
-    
-        $client = new Client();
 
-        $url = config('pdf.base_url') . '/encrypt';
-    
+        $client = new Client([
+            'timeout' => 20,
+        ]);
+
+        $url = config('pdf.base_url') . '/delete';
+
         $response = $client->post($url, [
             'multipart' => [
                 [
-                    'name'     => 'file',
+                    'name' => 'file',
                     'contents' => fopen($request->file('file')->getPathname(), 'r'),
-                    'filename' => 'file.pdf',
+                    'filename' => 'file.pdf'
                 ],
                 [
-                    'name'     => 'password',
-                    'contents' => $request->input('password'),
-                ],
+                    'name' => 'pages',
+                    'contents' => $request->input('pages')
+                ]
             ],
             'stream' => true,
         ]);
-    
-        $filename = 'encrypted_' . time() . '.pdf';
+
+        $filename = 'deleted_' . time() . '.pdf';
         $path = storage_path('app/public/' . $filename);
         file_put_contents($path, $response->getBody()->getContents());
-    
+
         return response()->json([
             'url' => asset('storage/' . $filename),
         ]);

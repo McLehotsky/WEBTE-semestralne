@@ -7,8 +7,13 @@ use App\Http\Controllers\PdfExportController;
 use App\Http\Controllers\PdfMergeController;
 use App\Http\Controllers\PdfEncryptController;
 use App\Http\Controllers\PdfDecryptController;
+
 use App\Http\Controllers\LoginHistoryController;
 use App\Http\Controllers\EditHistoryController;
+
+use App\Http\Controllers\ApiKeyController;
+use App\Http\Controllers\PdfDeleteController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/api-token/generate', [ApiKeyController::class, 'store'])->name('api-token.generate');
+});
 
     // Google Authentication Routes
     Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
@@ -61,5 +69,18 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+// PDF Encrypt Routes
+Route::view('/encrypt', 'pdf.encrypt')->name('pdf.encrypt');
+Route::post('/encrypt', [PdfEncryptController::class, 'encrypt'])->name('pdf.encrypt.upload');
+    
+// PDF Decrypt Routes
+Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
+Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
+
+// PDF Delete Routes
+Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
+Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete.upload');
 
 

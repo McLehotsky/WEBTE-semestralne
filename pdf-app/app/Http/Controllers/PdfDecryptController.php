@@ -15,8 +15,10 @@ class PdfDecryptController extends Controller
         ]);
     
         $client = new Client();
+
+        $url = config('pdf.base_url') . '/decrypt';
     
-        $response = $client->post('https://node23.webte.fei.stuba.sk/api/pdf/decrypt', [
+        $response = $client->post($url, [
             'multipart' => [
                 [
                     'name'     => 'file',
