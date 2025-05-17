@@ -7,8 +7,48 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 min-h-screen">
+    
     <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center">
         <h1 class="text-xl font-semibold text-gray-800">Moja aplikácia</h1>
+        <div>
+<a href="{{ route('lang.switch', 'sk') }}" id="switch-sk">SK</a> |
+<a href="{{ route('lang.switch', 'en') }}" id="switch-en">EN</a>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function waitForCookie(locale, callback, timeout = 1000) {
+            const start = Date.now();
+            const check = () => {
+                if (document.cookie.includes(`locale=${locale}`)) {
+                    callback();
+                } else if (Date.now() - start < timeout) {
+                    setTimeout(check, 50); // check again after 50ms
+                } else {
+                    callback(); // fallback reload even if cookie not seen
+                }
+            };
+            check();
+        }
+
+        function switchLang(locale, href) {
+            fetch(href, { credentials: 'same-origin' })
+                .then(() => waitForCookie(locale, () => location.reload()));
+        }
+
+        document.getElementById('switch-sk').addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLang('sk', this.href);
+        });
+
+        document.getElementById('switch-en').addEventListener('click', function (e) {
+            e.preventDefault();
+            switchLang('en', this.href);
+        });
+    });
+</script>
+
+
+        </div>
         <div class="space-x-4">
             <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900">Prihlásiť sa</a>
             <a href="{{ route('register') }}" class="text-sm text-blue-600 hover:underline">Registrovať sa</a>
@@ -17,7 +57,7 @@
 
     <main class="flex items-center justify-center py-20 px-4">
         <div class="max-w-2xl w-full bg-white rounded-lg shadow-md p-8 text-center">
-            <h2 class="text-3xl font-bold text-gray-800 mb-4">Vitaj v našej aplikácii!</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">{{__('welcome.title')}}</h2>
             <p class="text-gray-600 text-lg">Začni používať našu službu a prihlás sa alebo si vytvor nový účet.</p>
         </div>
     </main>

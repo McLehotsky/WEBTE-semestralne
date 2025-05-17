@@ -7,7 +7,7 @@ use App\Http\Controllers\PdfExportController;
 use App\Http\Controllers\PdfMergeController;
 use App\Http\Controllers\PdfEncryptController;
 use App\Http\Controllers\PdfDecryptController;
-
+use Symfony\Component\HttpFoundation\Cookie;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -49,3 +49,23 @@ Route::post('/encrypt', [PdfEncryptController::class, 'encrypt'])->name('pdf.enc
 // PDF Decrypt Routes
 Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
 Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
+
+
+// Language Switch Route
+
+
+Route::get('/lang/{lang}', function ($lang) {
+    if (!in_array($lang, ['sk', 'en'])) {
+        abort(400);
+    }
+
+    session(['locale' => $lang]);
+
+    // nastav cookie bez šifrovania (raw = true)
+    return redirect()->back()->withCookie(
+        new Cookie('locale', $lang, time() + (60 * 60 * 24 * 30), '/', null, false, false, false, 'Lax')
+    );
+})->name('lang.switch');
+
+
+

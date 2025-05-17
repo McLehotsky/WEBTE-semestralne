@@ -2,6 +2,18 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <div class="text-right p-4">
+        <a href="{{ route('lang.switch', 'sk') }}"
+           onclick="event.preventDefault(); fetch(this.href).then(() => window.location.reload());">SK</a> |
+        <a href="{{ route('lang.switch', 'en') }}"
+           onclick="event.preventDefault(); fetch(this.href).then(() => window.location.reload());">EN</a>
+
+   <!-- <a href="{{ route('lang.switch', 'sk') }}">SK</a> |
+   <a href="{{ route('lang.switch', 'en') }}">EN</a> -->
+
+</div>
+
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

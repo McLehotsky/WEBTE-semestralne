@@ -16,7 +16,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('dashboard.title') }}
                     </x-nav-link>
                     @auth
                         <!-- For admin and user -->
@@ -60,6 +60,9 @@
                 </div>
             </div>
 
+            <p>Session locale: {{ session('locale') }}</p>
+            <p>App locale: {{ app()->getLocale() }}</p>
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -93,6 +96,11 @@
                     </x-slot>
                 </x-dropdown>
             </div>
+            
+
+            <a href="{{ route('lang.switch', 'sk') }}">SK</a> | 
+            <a href="{{ route('lang.switch', 'en') }}">EN</a>
+
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
