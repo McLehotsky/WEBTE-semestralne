@@ -16,6 +16,7 @@ use App\Http\Controllers\PdfDeleteController;
 use App\Http\Controllers\PdfExtractController;
 use App\Http\Controllers\PdfReorderController;
 use App\Http\Controllers\PdfSplitController;
+use App\Http\Controllers\PdfTextExtractController;
 
 
 Route::get('/', function () {
@@ -84,6 +85,10 @@ Route::middleware('auth')->group(function () {
     // PDF Split Routes
     Route::view('/split', 'pdf.split')->name('pdf.split');
     Route::post('/split/upload', [PdfSplitController::class, 'split'])->name('pdf.split.upload');
+
+    // PDF Text Extract Routes
+    Route::view('/extract-text', 'pdf.extract-text')->name('pdf.extract-text');
+    Route::post('/extract-text/upload', [PdfTextExtractController::class, 'extract'])->name('pdf.extract-text.upload');
 });
 
 require __DIR__.'/auth.php';
