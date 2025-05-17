@@ -33,6 +33,16 @@
                             Delete Selected Pages
                         </button>
                     </div>
+                    <!-- Modal -->
+                    <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                        <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+                            <h2 class="text-xl font-semibold mb-4">Error</h2>
+                            <p id="errorMessage" class="text-gray-700 mb-4">Something went wrong.</p>
+                            <div class="text-right">
+                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -64,7 +74,7 @@
                 fileInput.files = e.dataTransfer.files;
                 fileName.innerText = e.dataTransfer.files[0].name;
             } else {
-                alert("Please select exactly 1 PDF file.");
+                showModal("Please select exactly 1 PDF file.");
             }
         });
 
@@ -148,7 +158,7 @@
             .join(',');
 
         if (!selected) {
-            alert("Please select at least one page to delete.");
+            showModal("Please select at least one page to delete.");
             return;
         }
 
@@ -171,12 +181,22 @@
 
                 // Alebo zobraziť odkaz:
                 const resultBox = document.createElement('div');
-                resultBox.innerHTML = `<a href="${data.url}" class="text-blue-600 underline font-medium mt-4 block" target="_blank">📥 Download cleaned PDF</a>`;
+                resultBox.innerHTML = `<a href="${data.url}" class="text-blue-600 underline font-medium mt-4 block" target="_blank">Download cleaned PDF</a>`;
                 document.getElementById('preview-container').appendChild(resultBox);
             } else {
-                alert("Something went wrong.");
+                showModal("Something went wrong.");
             }
         });
+    });
+    function showModal(message) {
+        const modal = document.getElementById('errorModal');
+        const errorText = document.getElementById('errorMessage');
+        errorText.innerText = message;
+        modal.classList.remove('hidden');
+    }
+
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+        document.getElementById('errorModal').classList.add('hidden');
     });
     </script>
 </x-app-layout>
