@@ -16,4 +16,11 @@ class LoginHistory extends Model
         'user_agent',
         'logged_in_at',
     ];
+
+    //to get name from the user table to show in the history
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

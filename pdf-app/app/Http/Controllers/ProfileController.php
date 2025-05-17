@@ -16,8 +16,14 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+        $apiKey = $user->currentApiToken();
+        $frontEndToken = $user->frontendToken();
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
+            'apiToken' => $apiKey?->key,
+            'frontendToken' => $frontEndToken?->key,
         ]);
     }
 
