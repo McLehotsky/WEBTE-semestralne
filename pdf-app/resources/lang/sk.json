@@ -1,0 +1,13 @@
+{
+    "dashboard.title": "Nástenka",
+    "dashboard.welcome": "Vitaj",
+    "dashboard.subtitle": "Vyber si, čo chceš spraviť s PDF:",
+    "dashboard.card.extract": "Extrahovať strany z PDF",
+    "dashboard.card.merge": "Zlúčiť PDF",
+    "dashboard.card.split": "Rozdeliť PDF",
+    "dashboard.card.encrypt": "Zašifrovať PDF",
+    "dashboard.card.decrypt": "Dešifrovať PDF",
+    "dashboard.card.delete": "Odstrániť strany z PDF",
+    "dashboard.card.rotate": "Otočiť strany v PDF",
+    "dashboard.footer": "Klikni na jednu z možností vyššie a začni pracovať s PDF súbormi."
+}

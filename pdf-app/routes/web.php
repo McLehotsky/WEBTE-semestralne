@@ -14,7 +14,11 @@ use App\Http\Controllers\EditHistoryController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PdfDeleteController;
 use App\Http\Controllers\PdfExtractController;
+
 use App\Http\Controllers\PdfRotateController;
+use App\Http\Controllers\PdfReorderController;
+use App\Http\Controllers\PdfSplitController;
+use App\Http\Controllers\PdfTextExtractController;
 
 
 Route::get('/', function () {
@@ -68,30 +72,53 @@ Route::middleware('auth')->group(function () {
     Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
     Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
 
+
     // PDF Rotate Routes
     Route::get('/rotate', [PdfRotateController::class, 'show'])->name('pdf.rotate');
     Route::post('/rotate', [PdfRotateController::class, 'rotate']);
 
 
+
+    // PDF Delete Routes
+    Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
+    Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete.upload');
+    
+    // PDF Extract Routes
+    Route::view('/extract', 'pdf.extract')->name('pdf.extract');
+    Route::post('/extract/upload', [PdfExtractController::class, 'upload'])->name('pdf.extract.upload');
+    
+    // PDF Reorder Routes
+    Route::view('/reorder', 'pdf.reorder')->name('pdf.reorder');
+    Route::post('/reorder/upload', [PdfReorderController::class, 'reorder'])->name('pdf.reorder.upload');
+
+    // PDF Split Routes
+    Route::view('/split', 'pdf.split')->name('pdf.split');
+    Route::post('/split/upload', [PdfSplitController::class, 'split'])->name('pdf.split.upload');
+
+    // PDF Text Extract Routes
+    Route::view('/extract-text', 'pdf.extract-text')->name('pdf.extract-text');
+    Route::post('/extract-text/upload', [PdfTextExtractController::class, 'extract'])->name('pdf.extract-text.upload');
+
 });
 
 require __DIR__.'/auth.php';
 
+use Illuminate\Support\Facades\File;
 
-// PDF Encrypt Routes
-Route::view('/encrypt', 'pdf.encrypt')->name('pdf.encrypt');
-Route::post('/encrypt', [PdfEncryptController::class, 'encrypt'])->name('pdf.encrypt.upload');
-    
-// PDF Decrypt Routes
-Route::view('/decrypt', 'pdf.decrypt')->name('pdf.decrypt');
-Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.decrypt.upload');
+Route::get('/lang/force/{lang}', function ($lang) {
+    if (!in_array($lang, ['en', 'sk'])) abort(403);
 
-// PDF Delete Routes
-Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
-Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete.upload');
+    $configPath = config_path('app.php');
+    $content = File::get($configPath);
 
-// PDF Extract Routes
-Route::view('/extract', 'pdf.extract')->name('pdf.extract');
-Route::post('/extract/upload', [PdfExtractController::class, 'upload'])->name('pdf.extract.upload');
+    $content = preg_replace("/'locale'\s*=>\s*['\"](\w+)['\"]/", "'locale' => '{$lang}'", $content);
+    $content = preg_replace("/'fallback_locale'\s*=>\s*['\"](\w+)['\"]/", "'fallback_locale' => '{$lang}'", $content);
 
+    File::put($configPath, $content);
+
+    // Clear cached config (if allowed)
+    shell_exec('php artisan config:clear');
+
+    return redirect()->back()->with('status', "Jazyk prepisaný na {$lang}.");
+})->name('lang.force');
 
