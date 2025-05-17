@@ -13,6 +13,7 @@ use App\Http\Controllers\EditHistoryController;
 
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PdfDeleteController;
+use App\Http\Controllers\PdfExtractController;
 
 
 Route::get('/', function () {
@@ -82,5 +83,9 @@ Route::post('/decrypt', [PdfDecryptController::class, 'decrypt'])->name('pdf.dec
 // PDF Delete Routes
 Route::get('/delete', [PdfDeleteController::class, 'show'])->name('pdf.delete');
 Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete.upload');
+
+// PDF Extract Routes
+Route::view('/extract', 'pdf.extract')->name('pdf.extract');
+Route::post('/extract/upload', [PdfExtractController::class, 'upload'])->name('pdf.extract.upload');
 
 
