@@ -30,7 +30,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/api-token/generate', [ApiKeyController::class, 'store'])->name('api-token.generate');
-});
 
     // Google Authentication Routes
     Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
