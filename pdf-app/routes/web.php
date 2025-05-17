@@ -7,7 +7,9 @@ use App\Http\Controllers\PdfExportController;
 use App\Http\Controllers\PdfMergeController;
 use App\Http\Controllers\PdfEncryptController;
 use App\Http\Controllers\PdfDecryptController;
+use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PdfDeleteController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/api-token/generate', [ApiKeyController::class, 'store'])->name('api-token.generate');
 });
 
 require __DIR__.'/auth.php';
