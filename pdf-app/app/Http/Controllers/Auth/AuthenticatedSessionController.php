@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use App\Models\ApiKey;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -27,6 +29,20 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $user = $request->user();
+
+        $existingFrontendToken = $user->apiKeys()->where('type', 'frontend')->first();
+
+        if (!$existingFrontendToken) {
+            $token = Str::random(60);
+
+            $user->apiKeys()->create([
+                'key' => $token,
+                'type' => 'frontend',
+                'active' => true,
+            ]);
+        }
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

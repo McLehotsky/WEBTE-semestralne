@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Login;
+use App\Models\ApiKey;
 
 class GoogleAuthController extends Controller
 {
@@ -30,6 +31,14 @@ class GoogleAuthController extends Controller
         Auth::login($user);
 
         event(new Login('web', $user, false));
+
+        if (!$user->apiKeys()->where('type', 'frontend')->exists()) {
+            $user->apiKeys()->create([
+                'key' => Str::random(60),
+                'type' => 'frontend',
+                'active' => true,
+            ]);
+        }
 
         return redirect()->intended('/dashboard');
     }

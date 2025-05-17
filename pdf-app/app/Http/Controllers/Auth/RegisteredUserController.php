@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+use App\Models\ApiKey;
 
 class RegisteredUserController extends Controller
 {
@@ -45,6 +47,18 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+
+        $existingFrontendToken = $user->apiKeys()->where('type', 'frontend')->first();
+
+        if (!$existingFrontendToken) {
+            $token = Str::random(60);
+
+            $user->apiKeys()->create([
+                'key' => $token,
+                'type' => 'frontend',
+                'active' => true,
+            ]);
+        }
 
         return redirect(route('dashboard', absolute: false));
     }
