@@ -1,0 +1,14 @@
+{
+    "dashboard.title": "Dashboard",
+    "dashboard.welcome": "Welcome",
+    "dashboard.subtitle": "Choose action for PDF manipulation:",
+    "dashboard.card.extract": "Extract pages from PDF",
+    "dashboard.card.merge": "Merge PDF",
+    "dashboard.card.split": "Split PDF",
+    "dashboard.card.encrypt": "Encrypt PDF",
+    "dashboard.card.decrypt": "Decrypt PDF",
+    "dashboard.card.delete": "Delete pages from PDF",
+    "dashboard.card.rotate": "Rotate pages from PDF",
+    "dashboard.footer": "Click on one of the options above to start working with PDF files."
+
+}

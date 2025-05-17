@@ -93,3 +93,22 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+use Illuminate\Support\Facades\File;
+
+Route::get('/lang/force/{lang}', function ($lang) {
+    if (!in_array($lang, ['en', 'sk'])) abort(403);
+
+    $configPath = config_path('app.php');
+    $content = File::get($configPath);
+
+    $content = preg_replace("/'locale'\s*=>\s*['\"](\w+)['\"]/", "'locale' => '{$lang}'", $content);
+    $content = preg_replace("/'fallback_locale'\s*=>\s*['\"](\w+)['\"]/", "'fallback_locale' => '{$lang}'", $content);
+
+    File::put($configPath, $content);
+
+    // Clear cached config (if allowed)
+    shell_exec('php artisan config:clear');
+
+    return redirect()->back()->with('status', "Jazyk prepisaný na {$lang}.");
+})->name('lang.force');
+
