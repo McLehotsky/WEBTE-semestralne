@@ -14,6 +14,7 @@ use App\Http\Controllers\EditHistoryController;
 use App\Http\Controllers\ApiKeyController;
 use App\Http\Controllers\PdfDeleteController;
 use App\Http\Controllers\PdfExtractController;
+use App\Http\Controllers\PdfReorderController;
 
 
 Route::get('/', function () {
@@ -87,4 +88,6 @@ Route::post('/delete', [PdfDeleteController::class, 'delete'])->name('pdf.delete
 Route::view('/extract', 'pdf.extract')->name('pdf.extract');
 Route::post('/extract/upload', [PdfExtractController::class, 'upload'])->name('pdf.extract.upload');
 
-
+// PDF Reorder Routes
+Route::view('/reorder', 'pdf.reorder')->name('pdf.reorder');
+Route::post('/reorder/upload', [PdfReorderController::class, 'reorder'])->name('pdf.reorder.upload');
