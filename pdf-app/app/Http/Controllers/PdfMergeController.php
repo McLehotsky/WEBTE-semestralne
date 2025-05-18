@@ -15,7 +15,7 @@ class PdfMergeController extends Controller
             'file2' => 'required|file|mimes:pdf',
         ]);
     
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
 
         $url = config('pdf.base_url') . '/merge';
 
