@@ -4,6 +4,9 @@ from fastapi.openapi.models import APIKey, APIKeyIn, SecuritySchemeType
 from fastapi.security.api_key import APIKeyHeader
 from fastapi.openapi.utils import get_openapi
 from typing import Annotated, Optional
+from sqlalchemy.orm import Session
+from sqlalchemy import text, select
+from database import SessionLocal
 import tempfile
 import zipfile
 import os
@@ -25,9 +28,60 @@ app = FastAPI(
     version="1.0.0"
 )
 
-def verify_api_key(x_api_key: Annotated[Optional[str], Header()] = None):
-    if x_api_key != "SECRET_KEY":
+api_key_header = APIKeyHeader(name="x-api-key", auto_error=False)
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def verify_api_key(
+    x_api_key: str = Security(api_key_header),
+    db: Session = Depends(get_db)
+):
+    logging.info("preco sa nic nestalo?")
+    logging.debug("🔑 Received API Key: %s", x_api_key)
+    if not x_api_key:
+        raise HTTPException(status_code=403, detail="Missing API Key")
+    
+    logging.info("Detekovalo kluc")
+    result = db.execute(text("SELECT * FROM api_keys WHERE `key` = :token AND active = 1"), {"token": x_api_key})
+    logging.info("result sa vratil")
+    token_row = result.fetchone()
+    logging.info("dostali sme iba jeden vysledok")
+    
+    logging.debug("🔍 Query result: %s", token_row)
+    if not token_row:
         raise HTTPException(status_code=403, detail="Invalid API Key")
+    
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    openapi_schema["components"]["securitySchemes"] = {
+        "APIKeyHeader": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "x-api-key"
+        }
+    }
+    # Pridaj security ku všetkým operáciám
+    for path in openapi_schema["paths"].values():
+        for operation in path.values():
+            operation.setdefault("security", []).append({"APIKeyHeader": []})
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
+
+
 def validate_pdf(file: UploadFile):
     if file.content_type != "application/pdf":
         raise HTTPException(status_code=400, detail="Uploaded file is not a PDF")
@@ -126,7 +180,8 @@ def root():
 @app.post("/merge", summary="Merge two PDF files", description="Spojí dva PDF súbory do jedného.")
 async def merge(
     file1: Annotated[UploadFile, File(description="Prvý PDF súbor")],
-    file2: Annotated[UploadFile, File(description="Druhý PDF súbor")]
+    file2: Annotated[UploadFile, File(description="Druhý PDF súbor")],
+    _: None = Depends(verify_api_key)
 ):
     reader1 = validate_pdf_upload(file1)
     reader2 = validate_pdf_upload(file2)
@@ -139,7 +194,8 @@ async def merge(
 @app.post("/delete", summary="Delete selected pages", description="Vymaže zadané strany z PDF súboru.")
 async def delete(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    pages: Annotated[str, Form(description="Strany na vymazanie, napr. '0,2,4'")]
+    pages: Annotated[str, Form(description="Strany na vymazanie, napr. '0,2,4'")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -151,7 +207,8 @@ async def delete(
 @app.post("/reorder", summary="Reorder pages", description="Zmení poradie strán podľa zadanej sekvencie.")
 async def reorder(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    order: Annotated[str, Form(description="Poradie strán, napr. '2,0,1'")]
+    order: Annotated[str, Form(description="Poradie strán, napr. '2,0,1'")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -163,7 +220,8 @@ async def reorder(
 @app.post("/extract", summary="Extract selected pages", description="Extrahuje vybrané strany do nového PDF súboru.")
 async def extract(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    pages: Annotated[str, Form(description="Strany na extrakciu, napr. '0,2'")]
+    pages: Annotated[str, Form(description="Strany na extrakciu, napr. '0,2'")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -175,7 +233,8 @@ async def extract(
 @app.post("/split", summary="Split PDF into chunks", description="Rozdelí PDF súbor na viacero častí s N stranami a vráti ZIP súbor so všetkými PDF.")
 async def split(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    chunk_size: Annotated[int, Form(description="Počet strán na jednu časť (napr. 5 = každý výstup má 5 strán)")]
+    chunk_size: Annotated[int, Form(description="Počet strán na jednu časť (napr. 5 = každý výstup má 5 strán)")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -187,7 +246,8 @@ async def split(
 @app.post("/rotate", summary="Rotate selected pages individually", description="Otočí zvolené strany s rôznymi uhlami. Formát: '0:90,1:-90'")
 async def rotate(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    rotations: Annotated[str, Form(description="Strany a uhly, napr. '0:90,1:-90,2:180'")]
+    rotations: Annotated[str, Form(description="Strany a uhly, napr. '0:90,1:-90,2:180'")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -200,7 +260,8 @@ async def rotate(
 async def add_page_endpoint(
     base: Annotated[UploadFile, File(description="Základný PDF súbor")],
     insert: Annotated[UploadFile, File(description="PDF so stranou na vloženie")],
-    position: Annotated[int, Form(description="Pozícia, kam sa má strana vložiť (0 = začiatok)")]
+    position: Annotated[int, Form(description="Pozícia, kam sa má strana vložiť (0 = začiatok)")],
+    _: None = Depends(verify_api_key)
 ):
     reader1 = validate_pdf_upload(base)
     reader2 = validate_pdf_upload(insert)
@@ -212,7 +273,8 @@ async def add_page_endpoint(
 
 @app.post("/extract-text", summary="Extract plain text", description="Získa čistý text z PDF súboru.")
 async def extract_text(
-    file: Annotated[UploadFile, File(description="Vstupný PDF súbor")]
+    file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -224,7 +286,8 @@ async def extract_text(
 @app.post("/encrypt", summary="Encrypt PDF", description="Zašifruje PDF súbor zadaným heslom.")
 async def encrypt(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    password: Annotated[str, Form(description="Heslo na šifrovanie")]
+    password: Annotated[str, Form(description="Heslo na šifrovanie")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
@@ -236,7 +299,8 @@ async def encrypt(
 @app.post("/decrypt", summary="Decrypt PDF", description="Odomkne zašifrovaný PDF súbor pomocou hesla.")
 async def decrypt(
     file: Annotated[UploadFile, File(description="Šifrovaný PDF súbor")],
-    password: Annotated[str, Form(description="Heslo na odšifrovanie")]
+    password: Annotated[str, Form(description="Heslo na odšifrovanie")],
+    _: None = Depends(verify_api_key)
 ):
     reader = validate_pdf_upload(file, True)
     validate_total_upload_size(file)

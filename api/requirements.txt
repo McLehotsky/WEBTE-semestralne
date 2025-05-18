@@ -2,3 +2,6 @@ fastapi
 uvicorn
 pypdf
 python-multipart
+sqlalchemy
+pymysql
+cryptography
