@@ -14,6 +14,9 @@ import pdf_utils
 import logging
 from pypdf import PdfReader
 import re
+from models import PdfEdit, EditHistory, User
+from pdf_operations import PDF_OPERATIONS
+from datetime import datetime
 
 logging.basicConfig(
     filename="debug.log",  # súbor, kam sa budú logy ukladať
@@ -40,7 +43,7 @@ def get_db():
 def verify_api_key(
     x_api_key: str = Security(api_key_header),
     db: Session = Depends(get_db)
-):
+) -> str:
     logging.info("preco sa nic nestalo?")
     logging.debug("🔑 Received API Key: %s", x_api_key)
     if not x_api_key:
@@ -55,6 +58,8 @@ def verify_api_key(
     logging.debug("🔍 Query result: %s", token_row)
     if not token_row:
         raise HTTPException(status_code=403, detail="Invalid API Key")
+    
+    return x_api_key
     
 def custom_openapi():
     if app.openapi_schema:
@@ -181,13 +186,16 @@ def root():
 async def merge(
     file1: Annotated[UploadFile, File(description="Prvý PDF súbor")],
     file2: Annotated[UploadFile, File(description="Druhý PDF súbor")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader1 = validate_pdf_upload(file1)
     reader2 = validate_pdf_upload(file2)
     validate_total_upload_size(file1, file2)
 
     output_path = pdf_utils.merge_pdfs(file1.file, file2.file)
+    log_pdf_edit("merge", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="merged.pdf")
 
 
@@ -195,12 +203,15 @@ async def merge(
 async def delete(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     pages: Annotated[str, Form(description="Strany na vymazanie, napr. '0,2,4'")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.delete_pages(file.file, pages)
+    log_pdf_edit("delete", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="deleted.pdf")
 
 
@@ -208,12 +219,15 @@ async def delete(
 async def reorder(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     order: Annotated[str, Form(description="Poradie strán, napr. '2,0,1'")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.reorder_pages(file.file, order)
+    log_pdf_edit("reorder", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="reordered.pdf")
 
 
@@ -221,12 +235,15 @@ async def reorder(
 async def extract(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     pages: Annotated[str, Form(description="Strany na extrakciu, napr. '0,2'")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.extract_pages(file.file, pages)
+    log_pdf_edit("extract", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="extracted.pdf")
 
 
@@ -234,12 +251,15 @@ async def extract(
 async def split(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     chunk_size: Annotated[int, Form(description="Počet strán na jednu časť (napr. 5 = každý výstup má 5 strán)")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     zip_path = pdf_utils.split_pdf_to_zip(file.file, chunk_size)
+    log_pdf_edit("split", x_api_key, db)
+
     return FileResponse(zip_path, media_type="application/zip", filename="split_pdf.zip")
 
 
@@ -247,12 +267,15 @@ async def split(
 async def rotate(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     rotations: Annotated[str, Form(description="Strany a uhly, napr. '0:90,1:-90,2:180'")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.rotate_pages_individual(file.file, rotations)
+    log_pdf_edit("rotate", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="rotated.pdf")
 
 
@@ -261,25 +284,31 @@ async def add_page_endpoint(
     base: Annotated[UploadFile, File(description="Základný PDF súbor")],
     insert: Annotated[UploadFile, File(description="PDF so stranou na vloženie")],
     position: Annotated[int, Form(description="Pozícia, kam sa má strana vložiť (0 = začiatok)")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader1 = validate_pdf_upload(base)
     reader2 = validate_pdf_upload(insert)
     validate_total_upload_size(base, insert)
 
     output_path = pdf_utils.add_page(base.file, insert.file, position)
+    log_pdf_edit("add-page", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="added.pdf")
 
 
 @app.post("/extract-text", summary="Extract plain text", description="Získa čistý text z PDF súboru.")
 async def extract_text(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.extract_text_from_pdf(file.file)
+    log_pdf_edit("extract-text", x_api_key, db)
+
     return FileResponse(output_path, media_type="text/plain", filename="extracted.txt")
 
 
@@ -287,12 +316,15 @@ async def extract_text(
 async def encrypt(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")],
     password: Annotated[str, Form(description="Heslo na šifrovanie")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.encrypt_pdf(file.file, password)
+    log_pdf_edit("encrypt", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="encrypted.pdf")
 
 
@@ -300,10 +332,65 @@ async def encrypt(
 async def decrypt(
     file: Annotated[UploadFile, File(description="Šifrovaný PDF súbor")],
     password: Annotated[str, Form(description="Heslo na odšifrovanie")],
-    _: None = Depends(verify_api_key)
+    x_api_key: str = Depends(verify_api_key),
+    db: Session = Depends(get_db)
 ):
     reader = validate_pdf_upload(file, True)
     validate_total_upload_size(file)
 
     output_path = pdf_utils.decrypt_pdf(file.file, password)
+    log_pdf_edit("decrypt", x_api_key, db)
+
     return FileResponse(output_path, media_type="application/pdf", filename="decrypted.pdf")
+
+
+def get_or_create_pdf_edit(slug: str, db: Session) -> int:
+    """
+    Skontroluje, či operácia existuje v `pdf_edits`.
+    Ak nie, vloží ju a vráti jej ID.
+    """
+    # najprv skús načítať
+    result = db.execute(select(PdfEdit).where(PdfEdit.slug == slug)).scalar_one_or_none()
+
+    if result:
+        return result.id
+
+    # ak neexistuje, pridaj
+    operation = PDF_OPERATIONS.get(slug)
+    if not operation:
+        raise ValueError(f"Neznáma operácia: {slug}")
+
+    new_op = PdfEdit(
+        name=operation["name"],
+        slug=slug,
+        description=operation["description"]
+    )
+    db.add(new_op)
+    db.commit()
+    db.refresh(new_op)
+
+    return new_op.id
+
+def log_pdf_edit(slug: str, x_api_key: str, db: Session):
+    result = db.execute(text("""
+            SELECT users.id AS user_id, api_keys.type AS api_type
+            FROM users
+            JOIN api_keys ON api_keys.user_id = users.id
+            WHERE api_keys.`key` = :token AND api_keys.active = 1
+        """), {"token": x_api_key})
+    
+    row = result.fetchone()
+    
+    user_id = row.user_id
+    accessed_via = row.api_type
+
+    pdf_edit_id = get_or_create_pdf_edit(slug, db)
+
+    log = EditHistory(
+        user_id=user_id,
+        pdf_edit_id=pdf_edit_id,
+        accessed_via=accessed_via,
+        used_at=datetime.utcnow()
+    )
+    db.add(log)
+    db.commit()
