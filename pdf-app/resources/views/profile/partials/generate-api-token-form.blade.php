@@ -1,21 +1,21 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Generate API token') }}
+            {{ __('profile.api.title') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __('Generates token for accessing rest API without the web application') }}
+            {{ __('profile.api.subtitle') }}
         </p>
     </header>
 
     <div class="mt-6 space-y-6">
         <div>
-            <x-input-label for="name" :value="__('API token')" />
+            <x-input-label for="name" :value="__('profile.api.button.label')" />
             <div class="mt-1 flex items-center overflow-hidden rounded-lg border border-gray-300 dark:border-gray-600">
-                <button id="generate-button" data-url="{{ route('api-token.generate') }}" class="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 dark:bg-blue-600 border hover:bg-blue-800 dark:hover:bg-blue-700 rounded-s-lg border-blue-700 dark:border-blue-600 hover:border-blue-700 dark:hover:border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">Generate</button>
+                <button id="generate-button" data-url="{{ route('api-token.generate') }}" class="shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-white bg-blue-700 dark:bg-blue-600 border hover:bg-blue-800 dark:hover:bg-blue-700 rounded-s-lg border-blue-700 dark:border-blue-600 hover:border-blue-700 dark:hover:border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">{{ __('profile.api.button.generate') }}</button>
                 <div class="relative w-full">
-                    <input placeholder="Your API token" id="url-shortener" type="text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-e-0 border-gray-300 text-gray-500 dark:text-gray-400 text-sm border-s-0 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $apiToken ?? '' }}" readonly />
+                    <input placeholder="__('profile.api.button.placeholder')" id="url-shortener" type="text" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-e-0 border-gray-300 text-gray-500 dark:text-gray-400 text-sm border-s-0 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ $apiToken ?? '' }}" readonly />
                 </div>
                 <button data-tooltip-target="tooltip-url-shortener" data-copy-to-clipboard-target="url-shortener" data-copy-to-clipboard="true" class="shrink-0 z-10 inline-flex items-center py-3 px-4 text-sm font-medium text-center text-gray-500 dark:text-gray-400 hover:text-gray-900 bg-gray-100 border border-gray-300 rounded-e-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:hover:text-white dark:border-gray-600" type="button">
                     <span id="default-icon">
@@ -30,8 +30,8 @@
                     </span>
                 </button>
                 <div id="tooltip-url-shortener" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-xs opacity-0 tooltip dark:bg-gray-700">
-                    <span id="default-tooltip-message">Copy link</span>
-                    <span id="success-tooltip-message" class="hidden">Copied!</span>
+                    <span id="default-tooltip-message">{{ __('profile.api.button.copy.tooltip') }}</span>
+                    <span id="success-tooltip-message" class="hidden">{{ __('profile.api.button.copy.done') }}</span>
                     <div class="tooltip-arrow" data-popper-arrow></div>
                 </div>
             </div>
