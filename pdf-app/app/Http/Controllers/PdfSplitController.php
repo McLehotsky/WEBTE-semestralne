@@ -18,11 +18,21 @@ class PdfSplitController extends Controller
         $file = $request->file('file');
         $chunkSize = $request->input('chunk_size');
 
-        $response = Http::attach(
+        $url = config('pdf.base_url') . '/split';
+
+        $user = $request->user();
+        $apiToken = optional($user->frontendToken())->key;
+
+        $response = Http::withHeaders([
+            'x-api-key' => $apiToken,
+        ])
+        ->attach(
             'file',
             file_get_contents($file->getRealPath()),
             $file->getClientOriginalName()
-        )->asMultipart()->post('https://node23.webte.fei.stuba.sk/api/pdf/split', [
+        )
+        ->asMultipart()
+        ->post($url, [
             'chunk_size' => $chunkSize,
         ]);
 

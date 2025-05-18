@@ -25,7 +25,14 @@ class PdfRotateController extends Controller
 
         $url = config('pdf.base_url') . '/rotate';
 
+        $user = $request->user();
+
+        $apiToken = optional($user->frontendToken())->key;
+
         $response = $client->post($url, [
+            'headers' => [
+                'x-api-key' => $apiToken,
+            ],
             'multipart' => [
                 [
                     'name' => 'file',

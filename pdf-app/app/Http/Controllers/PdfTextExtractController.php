@@ -16,11 +16,21 @@ class PdfTextExtractController extends Controller
 
         $file = $request->file('file');
 
-        $response = Http::attach(
+        $url = config('pdf.base_url') . '/extract-text';
+
+        $user = $request->user();
+        $apiToken = optional($user->frontendToken())->key;
+
+        $response = Http::withHeaders([
+            'x-api-key' => $apiToken,
+        ])
+        ->attach(
             'file',
             file_get_contents($file->getRealPath()),
             $file->getClientOriginalName()
-        )->asMultipart()->post('https://node23.webte.fei.stuba.sk/api/pdf/extract-text');
+        )
+        ->asMultipart()
+        ->post($url);
 
         if (!$response->ok()) {
             return response()->json(['error' => 'Text extraction failed'], 500);

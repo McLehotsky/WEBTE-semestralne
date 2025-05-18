@@ -21,13 +21,22 @@ class PdfExtractController extends Controller
         
         $url = config('pdf.base_url') . '/extract';
 
+        $user = $request->user();
+
+        $apiToken = optional($user->frontendToken())->key;
+
         // Pošli na tvoje FastAPI
-        $response = Http::attach(
+        $response = Http::withHeaders([
+                'x-api-key' => $apiToken,
+        ])
+        ->attach(
             'file',
             file_get_contents($file->getRealPath()),
             $file->getClientOriginalName()
-        )->asMultipart()->post($url, [
-            'pages' => $pages
+        )
+        ->asMultipart()
+        ->post($url, [
+            'pages' => $pages,
         ]);
 
         if (!$response->ok()) {
