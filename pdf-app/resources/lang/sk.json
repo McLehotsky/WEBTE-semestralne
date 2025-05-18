@@ -16,6 +16,14 @@
     "dashboard.footer": "Klikni na jednu z možností vyššie a začni pracovať s PDF súbormi.",
 
     "profile.title": "Profil",
+    "profile.logout": "Odhlásiť sa",
+
+    "navbar.history.title": "História",
+    "navbar.history.logins": "Prihlásení",
+    "navbar.history.logins.long": "História prihlásení",
+    "navbar.history.usage": "Použitia",
+    "navbar.history.usage.long": "História použitia",
+    "navbar.manual": "Používateľská príručka",
 
     "profile.information.title": "Informácie o profile",
     "profile.information.subtitle": "Aktualizujte informácie o svojom profile a e-mailovej adrese.",
