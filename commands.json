@@ -6,6 +6,7 @@
       "docker compose up -d --build": "Znovu spustí a rebuildne kontajnery",
       "docker compose exec laravel php artisan serve --host=0.0.0.0 --port=8001": "Spustí Laravel server na porte 8001",
       "docker compose exec laravel php artisan migrate": "Spustí migrácie v databáze",
+      "docker compose exec laravel php artisan storage:link": "linkne storage aby sa dali stahovat pdf-ka",
       "docker-compose exec laravel php artisan key:generate": "Vygeneruje nový APP_KEY pre Laravel",
       "docker compose exec laravel php artisan config:cache": "Vyčistí a cachene konfiguráciu",
       "docker compose exec laravel php artisan db:seed": "Spustí seedovanie databázy",
