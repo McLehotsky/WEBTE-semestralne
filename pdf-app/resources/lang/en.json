@@ -1,6 +1,7 @@
 {
-    "dashboard.title": "Dashboard",
-    "dashboard.welcome": "Welcome",
+    "dashboard.title": "Home",
+  
+    "dashboard.welcome": "We are CookedPDF",
     "dashboard.subtitle": "Choose action for PDF manipulation:",
     "dashboard.card.extract": "Extract pages from PDF",
     "dashboard.card.merge": "Merge PDF",
@@ -9,7 +10,11 @@
     "dashboard.card.decrypt": "Decrypt PDF",
     "dashboard.card.delete": "Delete pages from PDF",
     "dashboard.card.rotate": "Rotate pages from PDF",
-    "dashboard.footer": "Click on one of the options above to start working with PDF files.",
+    "dashboard.card.reorder": "Reorder PDF",
+    "dashboard.card.add-page": "Add page to PDF",
+    "dashboard.card.extract-text": "Extract text from PDF",
+    "dashboard.footer": "Click on one of the options above to start working with PDF files."
+
 
     "profile.title": "Profile",
 

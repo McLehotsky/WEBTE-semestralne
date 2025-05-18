@@ -1,6 +1,7 @@
 {
-    "dashboard.title": "Nástenka",
-    "dashboard.welcome": "Vitaj",
+    "dashboard.title": "Domov",
+  
+    "dashboard.welcome": "We are CookedPDF",
     "dashboard.subtitle": "Vyber si, čo chceš spraviť s PDF:",
     "dashboard.card.extract": "Extrahovať strany z PDF",
     "dashboard.card.merge": "Zlúčiť PDF",
@@ -9,7 +10,10 @@
     "dashboard.card.decrypt": "Dešifrovať PDF",
     "dashboard.card.delete": "Odstrániť strany z PDF",
     "dashboard.card.rotate": "Otočiť strany v PDF",
-    "dashboard.footer": "Klikni na jednu z možností vyššie a začni pracovať s PDF súbormi.",
+    "dashboard.card.reorder": "Preusporiadať PDF",
+    "dashboard.card.add-page": "Pridat stranu do PDF",
+    "dashboard.card.extract-text": "Extrahovať text z PDF",
+    "dashboard.footer": "Klikni na jednu z možností vyššie a začni pracovať s PDF súbormi."
 
     "profile.title": "Profil",
 
