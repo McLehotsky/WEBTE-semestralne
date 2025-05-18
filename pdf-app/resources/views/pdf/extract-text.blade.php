@@ -35,7 +35,7 @@
                                   class="w-full h-64 border border-gray-300 rounded-md p-3 text-left text-sm font-mono bg-gray-50 mb-4"
                                   readonly></textarea>
 
-                        <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm">
+                        <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm justify-center">
                             <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
