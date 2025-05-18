@@ -50,6 +50,59 @@ def validate_pdf_upload(file: UploadFile, allow_encrypted: bool = False) -> PdfR
         validate_not_encrypted(reader)
     return reader
 
+
+MAX_FILE_SIZE = "20MB"
+
+def parse_size(size_str: str) -> int:
+    """
+    Konvertuje čitateľné stringy ako '20MB', '100kb', '1.5GB' na bajty (int)
+    """
+    size_str = size_str.strip().upper()
+    match = re.match(r"^(\d+(?:\.\d+)?)\s*(B|KB|MB|GB)$", size_str)
+    if not match:
+        raise ValueError("Invalid size format. Use formats like '20MB', '100KB', etc.")
+    
+    number, unit = match.groups()
+    factor = {
+        "B": 1,
+        "KB": 1024,
+        "MB": 1024 ** 2,
+        "GB": 1024 ** 3,
+    }[unit]
+    return int(float(number) * factor)
+
+def human_readable_size(bytes: int) -> str:
+    """
+    Vráti veľkosť v čitateľnom formáte, napr. 20971520 → "20 MB"
+    """
+    for unit in ['B', 'KB', 'MB', 'GB']:
+        if bytes < 1024.0 or unit == 'GB':
+            return f"{bytes:.1f} {unit}" if unit != 'B' else f"{int(bytes)} B"
+        bytes /= 1024.0
+
+def validate_total_upload_size(*files: UploadFile):
+    """
+    Overí, že súčet veľkostí všetkých nahraných súborov neprekračuje daný limit.
+    """
+    max_bytes = parse_size(MAX_FILE_SIZE)
+    total_bytes = 0
+
+    for file in files:
+        file.file.seek(0, 2)  # presuň na koniec
+        size = file.file.tell()
+        file.file.seek(0)     # reset späť
+        total_bytes += size
+
+    if total_bytes > max_bytes:
+        raise HTTPException(
+            status_code=413,
+            detail=(
+                f"The size of uploaded files is too big "
+                f"({human_readable_size(total_bytes)} > {MAX_FILE_SIZE})"
+            )
+        )
+
+
 @app.get("/", summary="Root endpoint")
 def root():
     return JSONResponse(content={
@@ -77,6 +130,8 @@ async def merge(
 ):
     reader1 = validate_pdf_upload(file1)
     reader2 = validate_pdf_upload(file2)
+    validate_total_upload_size(file1, file2)
+
     output_path = pdf_utils.merge_pdfs(file1.file, file2.file)
     return FileResponse(output_path, media_type="application/pdf", filename="merged.pdf")
 
@@ -87,6 +142,8 @@ async def delete(
     pages: Annotated[str, Form(description="Strany na vymazanie, napr. '0,2,4'")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.delete_pages(file.file, pages)
     return FileResponse(output_path, media_type="application/pdf", filename="deleted.pdf")
 
@@ -97,6 +154,8 @@ async def reorder(
     order: Annotated[str, Form(description="Poradie strán, napr. '2,0,1'")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.reorder_pages(file.file, order)
     return FileResponse(output_path, media_type="application/pdf", filename="reordered.pdf")
 
@@ -107,6 +166,8 @@ async def extract(
     pages: Annotated[str, Form(description="Strany na extrakciu, napr. '0,2'")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.extract_pages(file.file, pages)
     return FileResponse(output_path, media_type="application/pdf", filename="extracted.pdf")
 
@@ -117,6 +178,8 @@ async def split(
     chunk_size: Annotated[int, Form(description="Počet strán na jednu časť (napr. 5 = každý výstup má 5 strán)")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     zip_path = pdf_utils.split_pdf_to_zip(file.file, chunk_size)
     return FileResponse(zip_path, media_type="application/zip", filename="split_pdf.zip")
 
@@ -127,6 +190,8 @@ async def rotate(
     rotations: Annotated[str, Form(description="Strany a uhly, napr. '0:90,1:-90,2:180'")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.rotate_pages_individual(file.file, rotations)
     return FileResponse(output_path, media_type="application/pdf", filename="rotated.pdf")
 
@@ -139,6 +204,8 @@ async def add_page_endpoint(
 ):
     reader1 = validate_pdf_upload(base)
     reader2 = validate_pdf_upload(insert)
+    validate_total_upload_size(base, insert)
+
     output_path = pdf_utils.add_page(base.file, insert.file, position)
     return FileResponse(output_path, media_type="application/pdf", filename="added.pdf")
 
@@ -148,6 +215,8 @@ async def extract_text(
     file: Annotated[UploadFile, File(description="Vstupný PDF súbor")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.extract_text_from_pdf(file.file)
     return FileResponse(output_path, media_type="text/plain", filename="extracted.txt")
 
@@ -158,6 +227,8 @@ async def encrypt(
     password: Annotated[str, Form(description="Heslo na šifrovanie")]
 ):
     reader = validate_pdf_upload(file)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.encrypt_pdf(file.file, password)
     return FileResponse(output_path, media_type="application/pdf", filename="encrypted.pdf")
 
@@ -168,5 +239,7 @@ async def decrypt(
     password: Annotated[str, Form(description="Heslo na odšifrovanie")]
 ):
     reader = validate_pdf_upload(file, True)
+    validate_total_upload_size(file)
+
     output_path = pdf_utils.decrypt_pdf(file.file, password)
     return FileResponse(output_path, media_type="application/pdf", filename="decrypted.pdf")
