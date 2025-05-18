@@ -15,21 +15,28 @@ class PdfMergeController extends Controller
             'file2' => 'required|file|mimes:pdf',
         ]);
     
-        $client = new \GuzzleHttp\Client();
+        $client = new Client();
 
         $url = config('pdf.base_url') . '/merge';
+
+        $user = $request->user();
+
+        $apiToken = optional($user->frontendToken())->key;
     
         $response = $client->post($url, [
+            'headers' => [
+                'x-api-key' => $apiToken,
+            ],
             'multipart' => [
                 [
                     'name'     => 'file1',
                     'contents' => fopen($request->file('file1')->getPathname(), 'r'),
-                    //'filename' => 'file1.pdf',
+                    'filename' => 'file1.pdf',
                 ],
                 [
                     'name'     => 'file2',
                     'contents' => fopen($request->file('file2')->getPathname(), 'r'),
-                    //'filename' => 'file2.pdf',
+                    'filename' => 'file2.pdf',
                 ],
             ],
             'stream' => true,

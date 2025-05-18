@@ -20,11 +20,19 @@ class PdfReorderController extends Controller
 
         $url = config('pdf.base_url') . '/reorder';
 
-        $response = Http::attach(
+        $user = $request->user();
+        $apiToken = optional($user->frontendToken())->key;
+
+        $response = Http::withHeaders([
+            'x-api-key' => $apiToken,
+        ])
+        ->attach(
             'file',
             file_get_contents($file->getRealPath()),
             $file->getClientOriginalName()
-        )->asMultipart()->post($url, [
+        )
+        ->asMultipart()
+        ->post($url, [
             'order' => $order
         ]);
 

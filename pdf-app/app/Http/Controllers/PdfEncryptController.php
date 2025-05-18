@@ -17,8 +17,15 @@ class PdfEncryptController extends Controller
         $client = new Client();
 
         $url = config('pdf.base_url') . '/encrypt';
+
+        $user = $request->user();
+
+        $apiToken = optional($user->frontendToken())->key;
     
         $response = $client->post($url, [
+            'headers' => [
+                'x-api-key' => $apiToken,
+            ],
             'multipart' => [
                 [
                     'name'     => 'file',
