@@ -1,5 +1,6 @@
 {
     "dashboard.title": "Domov",
+  
     "dashboard.welcome": "We are CookedPDF",
     "dashboard.subtitle": "Vyber si, čo chceš spraviť s PDF:",
     "dashboard.card.extract": "Extrahovať strany z PDF",
@@ -13,4 +14,40 @@
     "dashboard.card.add-page": "Pridat stranu do PDF",
     "dashboard.card.extract-text": "Extrahovať text z PDF",
     "dashboard.footer": "Klikni na jednu z možností vyššie a začni pracovať s PDF súbormi."
+
+    "profile.title": "Profil",
+
+    "profile.information.title": "Informácie o profile",
+    "profile.information.subtitle": "Aktualizujte informácie o svojom profile a e-mailovej adrese.",
+    "profile.information.name": "Meno",
+    "profile.information.email": "E-mail",
+    "profile.information.email.unverified": "Vaša e-mailová adresa nie je overená.",
+    "profile.information.email.resend": "Kliknite sem pre opätovné odoslanie overovacieho e-mailu.",
+    "profile.information.email.verification": "Nový overovací odkaz bol odoslaný na vašu e-mailovú adresu.",
+
+    "button.save": "Uložiť",
+    "button.saved": "Uložené.",
+
+    "profile.api.title": "Generovanie API tokenu",
+    "profile.api.subtitle": "Vygeneruje token na prístup k REST API bez použitia webovej aplikácie",
+    "profile.api.button.label": "API token",
+    "profile.api.button.generate": "Vygenerovať",
+    "profile.api.button.generate.text": "Generujem token...",
+    "profile.api.button.placeholder": "Tvoj API token",
+    "profile.api.button.copy.tooltip": "Kopírovať token",
+    "profile.api.button.copy.done": "Skopírované!",
+
+    "profile.password.title": "Aktualizovať heslo",
+    "profile.password.subtitle": "Uistite sa, že váš účet používa dlhé a náhodné heslo pre maximálnu bezpečnosť.",
+    "profile.password.current": "Aktuálne heslo",
+    "profile.password.new": "Nové heslo",
+    "profile.password.new.confirm": "Potvrdenie hesla",
+
+    "profile.delete.title": "Vymazať účet",
+    "profile.delete.subtitle": "Po vymazaní účtu budú všetky jeho zdroje a údaje natrvalo odstránené. Pred vymazaním účtu si prosím stiahnite všetky údaje, ktoré si chcete ponechať.",
+    "profile.delete.button": "Vymazať účet",
+    "profile.delete.confirmation.title": "Naozaj si prajete vymazať svoj účet?",
+    "profile.delete.confirmation.subtitle": "Po vymazaní účtu budú všetky jeho zdroje a údaje natrvalo odstránené. Na potvrdenie prosím zadajte svoje heslo.",
+    "profile.delete.confirmation.input.placeholder": "Heslo",
+    "profile.delete.confirmation.cancel": "Zrušiť"
 }

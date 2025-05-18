@@ -1,5 +1,6 @@
 {
     "dashboard.title": "Home",
+  
     "dashboard.welcome": "We are CookedPDF",
     "dashboard.subtitle": "Choose action for PDF manipulation:",
     "dashboard.card.extract": "Extract pages from PDF",
@@ -14,4 +15,40 @@
     "dashboard.card.extract-text": "Extract text from PDF",
     "dashboard.footer": "Click on one of the options above to start working with PDF files."
 
+
+    "profile.title": "Profile",
+
+    "profile.information.title": "Profile Information",
+    "profile.information.subtitle": "Update your account's profile information and email address.",
+    "profile.information.name": "Name",
+    "profile.information.email": "Email",
+    "profile.information.email.unverified": "Your email address is unverified.",
+    "profile.information.email.resend": "Click here to re-send the verification email.",
+    "profile.information.email.verification": "A new verification link has been sent to your email address.",
+
+    "button.save": "Save",
+    "button.saved": "Saved.",
+
+    "profile.api.title": "Generate API token",
+    "profile.api.subtitle": "Generates token for accessing rest API without the web application ",
+    "profile.api.button.label": "API token",
+    "profile.api.button.generate": "Generate",
+    "profile.api.button.generate.text": "Generating token...",
+    "profile.api.button.placeholder": "Your API token",
+    "profile.api.button.copy.tooltip": "Copy token",
+    "profile.api.button.copy.done": "Copied!",
+
+    "profile.password.title": "Update Password",
+    "profile.password.subtitle": "Ensure your account is using a long, random password to stay secure.",
+    "profile.password.current": "Current Password",
+    "profile.password.new": "New Password",
+    "profile.password.new.confirm": "Confirm Password",
+
+    "profile.delete.title": "Delete Account",
+    "profile.delete.subtitle": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+    "profile.delete.button": "Delete account",
+    "profile.delete.confirmation.title": "Are you sure you want to delete your account?",
+    "profile.delete.confirmation.subtitle": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+    "profile.delete.confirmation.input.placeholder": "Password",
+    "profile.delete.confirmation.cancel": "Cancel"
 }
