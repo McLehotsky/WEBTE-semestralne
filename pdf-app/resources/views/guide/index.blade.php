@@ -6,19 +6,20 @@
     <div class="max-w-6xl mx-auto py-10 px-6 space-y-8">
 
     <!-- Added the Export button, works with browser printer -->
-    <div class="flex justify-end mb-4 no-print">
-        <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded shadow">
+    <div class="flex justify-between mb-4 no-print">
+        <button onclick="window.print()" class="bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow">
             Exportovať príručku do PDF
         </button>
+    
+        <button
+            onclick="window.open('https://node23.webte.fei.stuba.sk/api/pdf/docs', '_blank')"
+            class="bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow"
+        >
+            Zobraziť dokumentáciu
+        </button>
     </div>
-    <!-- Button to view documentation -->
-        <div class="flex justify-end no-print">
-            <a href="{{ route('documentation') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded shadow">
-                Zobraziť dokumentáciu
-            </a>
-        </div>
 
         @include('guide.sections.frontend')
-        @include('guide.sections.backend')
+        <!-- @include('guide.sections.backend') -->
     </div>
 </x-app-layout>
