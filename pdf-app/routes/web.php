@@ -19,6 +19,7 @@ use App\Http\Controllers\PdfRotateController;
 use App\Http\Controllers\PdfReorderController;
 use App\Http\Controllers\PdfSplitController;
 use App\Http\Controllers\PdfTextExtractController;
+use App\Http\Controllers\PdfAddPageController;
 
 
 Route::get('/', function () {
@@ -98,6 +99,13 @@ Route::middleware('auth')->group(function () {
     // PDF Text Extract Routes
     Route::view('/extract-text', 'pdf.extract-text')->name('pdf.extract-text');
     Route::post('/extract-text/upload', [PdfTextExtractController::class, 'extract'])->name('pdf.extract-text.upload');
+
+    // PDF Add Page Routes
+    Route::view('/add-page', 'pdf.add-page')->name('pdf.add-page');
+    Route::post('/add-page/upload', [PdfAddPageController::class, 'add'])->name('pdf.add-page.upload');
+
+
+
 
 });
 

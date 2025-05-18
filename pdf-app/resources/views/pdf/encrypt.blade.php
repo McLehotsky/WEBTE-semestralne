@@ -37,12 +37,12 @@
                             name="password"
                             id="password"
                             placeholder="Enter password to encrypt"
-                            class="block w-full pl-12 pr-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+                            class="block w-full pl-12 pr-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500"
                             required>
                     </div>
 
                     <button type="submit"
-                        class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition">
+                        class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
                         Encrypt PDF
                     </button>
                 </form>
@@ -56,7 +56,7 @@
                         </svg>
                         <span class="text-sm text-gray-800">
                             PDF was successfully encrypted. <a id="download-link" href="#"
-                                class="text-blue-600 font-medium underline ml-1" target="_blank">Download PDF</a>
+                                class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
                         </span>
                     </div>
                 </div>

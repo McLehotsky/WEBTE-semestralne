@@ -17,6 +17,15 @@
 
 
     "profile.title": "Profile",
+    "profile.logout": "Log Out",
+
+    "navbar.history.title": "History",
+    "navbar.history.logins": "Logins",
+    "navbar.history.logins.long": "History of Logins",
+    "navbar.history.usage": "Usage",
+    "navbar.history.usage.long": "History of Usage",
+    "navbar.manual": "User Manual",
+    "navbar.language": "Language",
 
     "profile.information.title": "Profile Information",
     "profile.information.subtitle": "Update your account's profile information and email address.",

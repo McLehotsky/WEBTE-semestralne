@@ -28,7 +28,7 @@
                     <div id="file-names" class="mt-4 text-sm text-gray-600"></div>
 
                     <button type="submit"
-                        class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition">
+                        class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
                         Merge PDF
                     </button>
                 </form>
@@ -40,7 +40,7 @@
                         </svg>
                         <span class="text-sm text-gray-800">
                             PDF bol úspešne zlúčený. 
-                            <a id="download-link" href="#" class="text-blue-600 font-medium underline ml-1" target="_blank">Stiahnuť PDF</a>
+                            <a id="download-link" href="#" class="text-amber-600 font-medium underline ml-1" target="_blank">Stiahnuť PDF</a>
                         </span>
                     </div>
                 </div>

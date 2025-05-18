@@ -38,7 +38,7 @@
 
                     <div class="text-center mt-6">
                         <button type="button" id="split-btn"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
+                                class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
                             Split PDF
                         </button>
                     </div>
@@ -50,7 +50,7 @@
                             </svg>
                             <span class="text-sm text-gray-800">
                                 PDF was successfully split.
-                                <a id="download-link" href="#" class="text-blue-600 font-medium underline ml-1" target="_blank">Download ZIP</a>
+                                <a id="download-link" href="#" class="text-amber-600 font-medium underline ml-1" target="_blank">Download ZIP</a>
                             </span>
                         </div>
                     </div>

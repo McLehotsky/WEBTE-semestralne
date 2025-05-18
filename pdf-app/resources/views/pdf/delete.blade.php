@@ -32,7 +32,7 @@
                     </div>
                     <div class="text-center mt-6">
                         <button type="button" id="delete-pages-btn"
-                                class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded transition hidden">
+                                class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition hidden">
                             Delete Selected Pages
                         </button>
                     </div>
@@ -110,7 +110,6 @@
 
                         page.render({ canvasContext: context, viewport });
 
-                        // === 👇 Všetko ako predtým (wrapper, trash ikonka atď.) ===
                         const wrapper = document.createElement('div');
                         wrapper.className = 'relative group transition-transform transform hover:scale-105 cursor-pointer border rounded shadow hover:shadow-lg';
                         wrapper.style.width = '200px';
@@ -122,8 +121,8 @@
 
                         const trash = document.createElement('div');
                         trash.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 bg-red-500 text-white rounded-full shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0a1 1 0 001-1V5a1 1 0 00-1-1h-2.5a1 1 0 01-.707-.293l-.5-.5A1 1 0 0012.5 3h-1a1 1 0 00-.707.293l-.5.5A1 1 0 019.5 4H7a1 1 0 00-1 1v1a1 1 0 001 1h10z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 p-2 bg-amber-600 text-white rounded-full shadow-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                             </svg>`;
                         trash.className = 'absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition';
                         wrapper.appendChild(trash);
@@ -141,7 +140,7 @@
                         wrapper.addEventListener('click', () => {
                             checkbox.checked = !checkbox.checked;
                             wrapper.classList.toggle('ring-4');
-                            wrapper.classList.toggle('ring-red-400');
+                            wrapper.classList.toggle('ring-amber-400');
                         });
 
                         previewContainer.appendChild(wrapper);
@@ -183,9 +182,9 @@
                 window.open(data.url, '_blank');
 
                 // Alebo zobraziť odkaz:
-                const resultBox = document.createElement('div');
+                /* const resultBox = document.createElement('div');
                 resultBox.innerHTML = `<a href="${data.url}" class="text-blue-600 underline font-medium mt-4 block" target="_blank">Download cleaned PDF</a>`;
-                document.getElementById('preview-container').appendChild(resultBox);
+                document.getElementById('preview-container').appendChild(resultBox); */
             } else {
                 showModal("Something went wrong.");
             }

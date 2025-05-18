@@ -34,7 +34,7 @@
 
                     <div class="text-center mt-6">
                         <button type="button" id="rotate-pages-btn"
-                                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded transition hidden">
+                                class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition hidden">
                             Otočiť vybrané stránky
                         </button>
                     </div>
@@ -45,7 +45,7 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
                             <span class="text-sm text-gray-800">
-                                PDF bolo úspešne otočené. <a id="download-link" href="#" class="text-blue-600 underline font-medium ml-1" target="_blank">Stiahnuť PDF</a>
+                                PDF bolo úspešne otočené. <a id="download-link" href="#" class="text-amber-600 underline font-medium ml-1" target="_blank">Stiahnuť PDF</a>
                             </span>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
 
                         const rotateBtn = document.createElement('button');
                         rotateBtn.innerHTML = '↻0';
-                        rotateBtn.className = 'absolute bottom-2 left-2 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-purple-700 text-xs hidden';
+                        rotateBtn.className = 'absolute bottom-2 left-2 bg-amber-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-amber-700 text-xs hidden';
                         rotateBtn.style.zIndex = '10';
                         rotateBtn.style.position = 'absolute';
                         rotateBtn.style.pointerEvents = 'auto';
@@ -173,7 +173,7 @@
                         wrapper.addEventListener('click', (event) => {
                             checkbox.checked = !checkbox.checked;
                             wrapper.classList.toggle('ring-4');
-                            wrapper.classList.toggle('ring-purple-400');
+                            wrapper.classList.toggle('ring-amber-400');
                             rotateBtn.classList.toggle('hidden', !checkbox.checked);
                             updateRotateButtonVisibility();
 

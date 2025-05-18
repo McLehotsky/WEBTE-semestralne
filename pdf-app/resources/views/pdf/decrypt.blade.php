@@ -37,15 +37,26 @@
                             name="password"
                             id="password"
                             placeholder="Enter decryption password"
-                            class="block w-full pl-12 pr-4 py-2 border border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+                            class="block w-full pl-12 pr-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500"
                             required>
                     </div>
 
                     <button type="submit"
-                        class="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-6 rounded transition">
+                        class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
                         Decrypt PDF
                     </button>
                 </form>
+
+                <!-- Modal -->
+                <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+                        <h2 class="text-xl font-semibold mb-4">Error</h2>
+                        <p id="errorMessage" class="text-gray-700 mb-4">Something went wrong.</p>
+                        <div class="text-right">
+                            <button id="closeModalBtn" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-800">Close</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="result" class="mt-6 hidden">
                     <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm">
@@ -57,7 +68,7 @@
                         <span class="text-sm text-gray-800">
                             PDF has been decrypted.
                             <a id="download-link" href="#"
-                                class="text-blue-600 font-medium underline ml-1" target="_blank">Download PDF</a>
+                                class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
                         </span>
                     </div>
                 </div>
@@ -124,7 +135,10 @@
         });
 
         function showModal(message) {
-            alert(message); // Môžeš nahradiť za tvoj modal
+            const modal = document.getElementById('errorModal');
+            const errorText = document.getElementById('errorMessage');
+            errorText.innerText = message;
+            modal.classList.remove('hidden');
         }
     </script>
 </x-app-layout>
