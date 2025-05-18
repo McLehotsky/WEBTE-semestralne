@@ -3,51 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use GuzzleHttp\Client;
 
 class PdfAddPageController extends Controller
 {
-    public function show()
-    {
-        return view('pdf.add-page');
-    }
-
     public function add(Request $request)
     {
         $request->validate([
-            'base_file' => 'required|file|mimes:pdf|max:10240',
-            'insert_file' => 'required|file|mimes:pdf|max:10240',
-            'position' => 'required|integer|min:0'
+            'base' => 'required|file|mimes:pdf|max:20480',
+            'insert' => 'required|file|mimes:pdf|max:20480',
+            'position' => 'required|integer|min:0',
         ]);
 
-        $client = new Client(['timeout' => 20]);
-        $url = config('pdf.base_url') . '/add-page';
-
-        $response = $client->post($url, [
-            'multipart' => [
-                [
-                    'name' => 'base_file',
-                    'contents' => fopen($request->file('base_file')->getPathname(), 'r'),
-                    'filename' => 'base.pdf'
-                ],
-                [
-                    'name' => 'insert_file',
-                    'contents' => fopen($request->file('insert_file')->getPathname(), 'r'),
-                    'filename' => 'insert.pdf'
-                ],
-                [
-                    'name' => 'position',
-                    'contents' => (string) $request->input('position')
-                ]
-            ],
-            'stream' => true
+        $response = Http::attach(
+            'base',
+            file_get_contents($request->file('base')->getRealPath()),
+            $request->file('base')->getClientOriginalName()
+        )->attach(
+            'insert',
+            file_get_contents($request->file('insert')->getRealPath()),
+            $request->file('insert')->getClientOriginalName()
+        )->asMultipart()->post('https://node23.webte.fei.stuba.sk/api/pdf/add-page', [
+            'position' => $request->input('position'),
         ]);
 
-        $filename = 'added_' . time() . '.pdf';
+        if (!$response->ok()) {
+            return response()->json(['error' => 'Add page failed'], 500);
+        }
+
+        $filename = 'addpage_' . time() . '.pdf';
         $path = storage_path('app/public/' . $filename);
-        file_put_contents($path, $response->getBody()->getContents());
+        file_put_contents($path, $response->getBody());
 
         return response()->json([
             'url' => asset('storage/' . $filename),

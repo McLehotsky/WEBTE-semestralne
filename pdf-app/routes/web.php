@@ -101,8 +101,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/extract-text/upload', [PdfTextExtractController::class, 'extract'])->name('pdf.extract-text.upload');
 
     // PDF Add Page Routes
-    Route::get('/add-page', [PdfAddPageController::class, 'show'])->name('pdf.add-page.show');
-    Route::post('/add-page', [PdfAddPageController::class, 'add'])->name('pdf.add-page.upload');
+    Route::view('/add-page', 'pdf.add-page')->name('pdf.add-page');
+    Route::post('/add-page/upload', [PdfAddPageController::class, 'add'])->name('pdf.add-page.upload');
 
 
 
