@@ -22,7 +22,7 @@
 
                     <div class="text-center mt-6">
                         <button type="button" id="extract-btn"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition">
+                                class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
                             Extract Text
                         </button>
                     </div>
@@ -38,7 +38,7 @@
                             </svg>
                             <span class="text-sm text-gray-800">
                                 Text was successfully extracted.
-                                <a id="download-link" href="#" download="text_extracted.txt" class="text-blue-600 font-medium underline ml-1">Download TXT</a>
+                                <a id="download-link" href="#" download="text_extracted.txt" class="text-amber-600 font-medium underline ml-1">Download TXT</a>
                             </span>
                         </div>
                     </div>

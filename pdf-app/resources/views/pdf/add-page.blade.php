@@ -57,7 +57,7 @@
                             </svg>
                             <span class="text-sm text-gray-800">
                                 Stránka bola úspešne pridaná.
-                                <a id="download-link" href="#" download="added.pdf" class="text-blue-600 font-medium underline ml-1">Download PDF</a>
+                                <a id="download-link" href="#" download="added.pdf" class="text-amber-600 font-medium underline ml-1">Download PDF</a>
                             </span>
                         </div>
                     </div>
