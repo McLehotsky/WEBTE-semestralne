@@ -33,6 +33,19 @@
                             Delete Selected Pages
                         </button>
                     </div>
+
+                    <div id="result" class="mt-6 hidden">
+                        <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm justify-center">
+                            <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="text-sm text-gray-800">
+                                Stránka bola úspešne pridaná.
+                                <a id="download-link" href="#" download="deleted.pdf" class="text-amber-600 font-medium underline ml-1">Download PDF</a>
+                            </span>
+                        </div>
+                    </div>
+
                     <!-- Modal -->
                     <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
@@ -175,13 +188,9 @@
         .then(res => res.json())
         .then(data => {
             if (data.url) {
-                // Môžeš aj otvoriť nové okno:
-                window.open(data.url, '_blank');
-
-                // Alebo zobraziť odkaz:
-                /* const resultBox = document.createElement('div');
-                resultBox.innerHTML = `<a href="${data.url}" class="text-blue-600 underline font-medium mt-4 block" target="_blank">Download cleaned PDF</a>`;
-                document.getElementById('preview-container').appendChild(resultBox); */
+                const link = document.getElementById('download-link');
+                link.href = data.url.replace(/\\/g, '');
+                document.getElementById('result').classList.remove('hidden');
             } else {
                 showModal("Something went wrong.");
             }

@@ -45,14 +45,14 @@
                 </form>
 
                 <div id="result" class="mt-6 hidden">
-                    <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm">
+                    <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm justify-center">
                         <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z"
                                 clip-rule="evenodd" />
                         </svg>
                         <span class="text-sm text-gray-800">
-                            PDF was successfully encrypted. <a id="download-link" href="#"
+                            PDF was successfully encrypted. <a id="download-link" href="#" download="encrypted.pdf"
                                 class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
                         </span>
                     </div>
@@ -111,8 +111,8 @@
 
             const data = await response.json();
             if (data.url) {
-                const cleanUrl = data.url.replace(/\\/g, '');
-                document.getElementById('download-link').href = cleanUrl;
+                const link = document.getElementById('download-link');
+                link.href = data.url.replace(/\\/g, '');
                 document.getElementById('result').classList.remove('hidden');
             } else {
                 showModal("Šifrovanie zlyhalo.");
