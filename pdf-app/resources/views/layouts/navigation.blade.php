@@ -83,7 +83,11 @@
                     @endif
                     @endauth
                 </div>
-            </div>       
+            </div>      
+            
+            @php
+                $locale = app()->getLocale();
+            @endphp
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -104,11 +108,15 @@
                     <div x-show="open" @click.away="open = false"
                          class="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                         <a href="{{ route('lang.force', 'sk') }}"
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                           class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100
+                            {{ $locale === 'sk' ? 'font-semibold bg-gray-100 text-purple-700' : 'text-gray-700' }}">
+                           <img src="https://flagcdn.com/h20/sk.png" alt="SK" class="w-5 h-3 rounded-sm">
                             SK
                         </a>
                         <a href="{{ route('lang.force', 'en') }}"
-                           class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                           class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100
+                            {{ $locale === 'en' ? 'font-semibold bg-gray-100 text-purple-700' : 'text-gray-700' }}">
+                           <img src="https://flagcdn.com/h20/gb.png" alt="EN" class="w-5 h-3 rounded-sm">
                             EN
                         </a>
                     </div>
@@ -209,6 +217,27 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+        </div>
+
+        <!-- Language Switcher (Responsive) -->
+        <div class="border-t border-gray-200 pt-3 pb-1">
+            <span class="block px-4 py-2 text-sm text-gray-500 font-semibold">
+                {{ __('navbar.language') }}
+            </span>
+
+            <x-responsive-nav-link href="{{ route('lang.force', 'sk') }}" :active="$locale === 'sk'">
+                <div class="flex items-center gap-2">
+                    <img src="https://flagcdn.com/h20/sk.png" alt="SK" class="w-5 h-3 rounded-sm">
+                    Slovensky
+                </div>
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link href="{{ route('lang.force', 'en') }}" :active="$locale === 'en'">
+                <div class="flex items-center gap-2">
+                    <img src="https://flagcdn.com/h20/gb.png" alt="EN" class="w-5 h-3 rounded-sm">
+                    English
+                </div>
+            </x-responsive-nav-link>
         </div>
     </div>
 </nav>
