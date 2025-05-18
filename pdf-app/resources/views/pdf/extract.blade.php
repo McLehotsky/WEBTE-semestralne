@@ -29,7 +29,7 @@
 
                     <div class="text-center mt-6">
                         <button type="button" id="extract-pages-btn"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition hidden">
+                                class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition hidden">
                             Extract Selected Pages
                         </button>
                     </div>
@@ -40,7 +40,7 @@
                             <h2 class="text-xl font-semibold mb-4">Error</h2>
                             <p id="errorMessage" class="text-gray-700 mb-4">Something went wrong.</p>
                             <div class="text-right">
-                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Close</button>
+                                <button id="closeModalBtn" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-800">Close</button>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         </svg>
                         <span class="text-sm text-gray-800">
                             PDF was successfully extracted.
-                            <a id="download-link" href="#" class="text-blue-600 font-medium underline ml-1" target="_blank">Download PDF</a>
+                            <a id="download-link" href="#" class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
                         </span>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                             wrapper.addEventListener('click', () => {
                                 checkbox.checked = !checkbox.checked;
                                 wrapper.classList.toggle('ring-4');
-                                wrapper.classList.toggle('ring-blue-400');
+                                wrapper.classList.toggle('ring-amber-400');
                             });
 
                             previewContainer.appendChild(wrapper);
