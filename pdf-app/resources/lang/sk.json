@@ -49,5 +49,56 @@
     "profile.delete.confirmation.title": "Naozaj si prajete vymazať svoj účet?",
     "profile.delete.confirmation.subtitle": "Po vymazaní účtu budú všetky jeho zdroje a údaje natrvalo odstránené. Na potvrdenie prosím zadajte svoje heslo.",
     "profile.delete.confirmation.input.placeholder": "Heslo",
-    "profile.delete.confirmation.cancel": "Zrušiť"
+    "profile.delete.confirmation.cancel": "Zrušiť",
+
+    "guide.title": "Používateľská príručka",
+
+    "guide.section.title": "Ako používať CookedPDF",
+    "guide.section.subtitle": "Vytvorené pre jednoduché a rýchle spracovanie PDF súborov.",
+
+    "guide.login.title": "Prihlásenie a registrácia",
+    "guide.login.subtitle": "Používateľ sa musí zaregistrovať alebo prihlásiť (aj cez Google). Po prihlásení získa prístup k svojmu CookedPDF.",
+
+    "guide.home.title": "Domovská stránka",
+    "guide.home.subtitle": "Zobrazuje dostupné akcie pre manipuláciu s PDF. Používateľ si môže vybrať akciu, ktorú chce vykonať.",
+
+    "guide.extract.title": "Extrahovať strany",
+    "guide.extract.subtitle": "Vyber konkrétne strany z PDF a ulož ich do nového súboru.",
+
+    "guide.merge.title": "Zlúčiť PDF",
+    "guide.merge.subtitle": "Spoj viacero PDF súborov do jedného dokumentu.",
+
+    "guide.split.title": "Rozdeliť PDF",
+    "guide.split.subtitle": "Rozdeľ PDF na viac častí podľa zadania alebo počtu strán.",
+
+    "guide.encrypt.title": "Zašifrovať PDF",
+    "guide.encrypt.subtitle": "Chráň PDF súbor heslom pred neoprávneným prístupom.",
+
+    "guide.decrypt.title": "Dešifrovať PDF",
+    "guide.decrypt.subtitle": "Odstráň ochranu heslom zo zašifrovaného PDF súboru.",
+
+    "guide.delete.title": "Odstrániť strany",
+    "guide.delete.subtitle": "Vymaž vybrané strany z PDF dokumentu.",
+
+    "guide.rotate.title": "Otočiť strany",
+    "guide.rotate.subtitle": "Otoč strany v PDF do požadovaného smeru.",
+
+    "guide.reorder.title": "Preusporiadať PDF",
+    "guide.reorder.subtitle": "Zmeň poradie strán v PDF jednoduchým preskupením.",
+
+    "guide.add-page.title": "Pridať stranu",
+    "guide.add-page.subtitle": "Vlož jednu alebo viac strán do existujúceho PDF súboru.",
+
+    "guide.extract-text.title": "Extrahovať text",
+    "guide.extract-text.subtitle": "Získaj čistý text z PDF dokumentu vo forme .txt súboru.",
+
+    "guide.docs.title": "Dokumentácia",
+    "guide.docs.subtitle": "Technický popis API: zoznam endpointov, metódy a ich využitie.",
+
+    "guide.history.title": "História",
+    "guide.history.subtitle": "Zobrazí históriu všetkých akcií vykonaných používateľom alebo históriu prihlásení. Admin môže zmazať históriu alebo jednotlivé akcie.",
+
+    "button.exportPDF": "Exportovať do PDF",
+    "button.docs": "Zobraziť dokumentáciu"
+
 }
