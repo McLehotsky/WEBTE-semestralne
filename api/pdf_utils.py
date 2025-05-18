@@ -1,4 +1,5 @@
 from pypdf import PdfMerger, PdfReader, PdfWriter
+from fastapi import HTTPException
 import tempfile
 import zipfile
 import os
@@ -12,8 +13,7 @@ def merge_pdfs(file1, file2):
 
     for f in [file1, file2]:
         reader = PdfReader(f)
-        for page in reader.pages:
-            writer.add_page(page)
+        writer.append(reader)
 
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     with open(output.name, "wb") as out_f:
@@ -109,13 +109,14 @@ def rotate_pages_individual(file, rotations: str):
 # 7. Add a page from one PDF into another at a specific position
 def add_page(base_file, insert_file, position):
     base_reader = PdfReader(base_file)
+    base_pages = base_reader.pages
     insert_reader = PdfReader(insert_file)
     writer = PdfWriter()
-    for i in range(len(base_reader.pages)):
+    for i in range(len(base_pages)):
         if i == position:
             writer.add_page(insert_reader.pages[0])
-        writer.add_page(base_reader.pages[i])
-    if position >= len(base_reader.pages):
+        writer.add_page(base_pages[i])
+    if position >= len(base_pages):
         writer.add_page(insert_reader.pages[0])
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     with open(output.name, "wb") as f:
@@ -150,12 +151,21 @@ def encrypt_pdf(file, password):
 # 10. Remove password from PDF
 def decrypt_pdf(file, password):
     reader = PdfReader(file)
+
     if reader.is_encrypted:
-        reader.decrypt(password)
+        success = reader.decrypt(password)
+        if not success:
+            raise HTTPException(
+                status_code=401,
+                detail="Nesprávne heslo pre dešifrovanie PDF súboru."
+            )
+
     writer = PdfWriter()
     for page in reader.pages:
         writer.add_page(page)
+
     output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     with open(output.name, "wb") as f:
         writer.write(f)
+        
     return output.name
