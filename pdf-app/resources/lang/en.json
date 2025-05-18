@@ -59,5 +59,55 @@
     "profile.delete.confirmation.title": "Are you sure you want to delete your account?",
     "profile.delete.confirmation.subtitle": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
     "profile.delete.confirmation.input.placeholder": "Password",
-    "profile.delete.confirmation.cancel": "Cancel"
+    "profile.delete.confirmation.cancel": "Cancel",
+
+    "guide.title": "User Guide",
+    
+    "guide.section.title": "How to use CookedPDF",
+    "guide.section.subtitle": "Designed for simple and fast PDF processing.",
+    
+    "guide.login.title": "Login and Registration",
+    "guide.login.subtitle": "The user must register or log in (Google login is also available). After logging in, access to their CookedPDF workspace is granted.",
+    
+    "guide.home.title": "Home Page",
+    "guide.home.subtitle": "Displays available PDF manipulation actions. The user can choose the action they wish to perform.",
+    
+    "guide.extract.title": "Extract Pages",
+    "guide.extract.subtitle": "Select specific pages from a PDF and save them as a new file.",
+    
+    "guide.merge.title": "Merge PDF",
+    "guide.merge.subtitle": "Combine multiple PDF files into one document.",
+    
+    "guide.split.title": "Split PDF",
+    "guide.split.subtitle": "Divide a PDF into several parts based on page numbers or chunk size.",
+    
+    "guide.encrypt.title": "Encrypt PDF",
+    "guide.encrypt.subtitle": "Protect a PDF file with a password against unauthorized access.",
+    
+    "guide.decrypt.title": "Decrypt PDF",
+    "guide.decrypt.subtitle": "Remove password protection from an encrypted PDF file.",
+    
+    "guide.delete.title": "Delete Pages",
+    "guide.delete.subtitle": "Remove selected pages from a PDF document.",
+    
+    "guide.rotate.title": "Rotate Pages",
+    "guide.rotate.subtitle": "Rotate PDF pages to the desired orientation.",
+    
+    "guide.reorder.title": "Reorder PDF",
+    "guide.reorder.subtitle": "Change the order of pages in a PDF by rearranging them easily.",
+    
+    "guide.add-page.title": "Add Page",
+    "guide.add-page.subtitle": "Insert one or more pages into an existing PDF file.",
+    
+    "guide.extract-text.title": "Extract Text",
+    "guide.extract-text.subtitle": "Retrieve plain text from a PDF document as a .txt file.",
+    
+    "guide.docs.title": "Documentation",
+    "guide.docs.subtitle": "Technical API description: list of endpoints, methods, and their usage.",
+    
+    "guide.history.title": "History",
+    "guide.history.subtitle": "Displays the history of all user-performed actions or login history. Admin can delete full history or specific entries.",
+    
+    "button.exportPDF": "Export to PDF",
+    "button.docs": "View Documentation"
 }
