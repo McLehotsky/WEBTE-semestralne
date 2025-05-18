@@ -47,7 +47,17 @@
                                     </td>
                                     <td class="px-4 py-2 font-medium">{{ $log->user->name }}</td>
                                     <td class="px-4 py-2">{{ $log->pdfEdit->name }}</td>
-                                    <td class="px-4 py-2">{{ ucfirst($log->accessed_via) }}</td>
+                                    <td class="px-4 py-2">
+                                        @if ($log->accessed_via === 'frontend')
+                                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                                Frontend
+                                            </span>
+                                        @elseif ($log->accessed_via === 'api')
+                                            <span class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">
+                                                API
+                                            </span>
+                                        @endif
+                                    </td>
                                     <td class="px-4 py-2">{{ \Carbon\Carbon::parse($log->used_at)->format('d. m. Y') }}</td>
                                     <td class="px-4 py-2">{{ \Carbon\Carbon::parse($log->used_at)->format('H:i') }}</td>
                                 </tr>
