@@ -110,9 +110,6 @@
         $(document).ready(function () {
             const table = $('#datatable').DataTable({
                 initComplete: function () {
-                    // Zarovnanie a rozostup
-                    $('div.dataTables_wrapper .dataTables_length').addClass('pr-6');
-                    // $('div.dataTables_wrapper .dataTables_filter').addClass('mb-1 ml-auto');
 
                     // Flex container pre oba
                     $('div.dataTables_wrapper .dataTables_length, div.dataTables_wrapper .dataTables_filter')
@@ -129,4 +126,58 @@
             });
         });
     </script>
+
+    <style>
+        /* Parent wrapper styling */
+        div.dataTables_wrapper .dataTables_paginate {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* Base button styling */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button {
+            background-color: transparent;
+            color: #D97706 !important;
+            border: 1px solid #4B5563; /* Tailwind gray-700 */
+            padding: 6px 12px;
+            margin: 0 2px;
+            border-radius: 0;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+            min-width: 38px;
+            text-align: center;
+        }
+
+        /* First and last buttons (← →) */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button:first-child {
+            border-top-left-radius: 12px;
+            border-bottom-left-radius: 12px;
+        }
+
+        div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
+            border-top-right-radius: 12px;
+            border-bottom-right-radius: 12px;
+        }
+
+        /* Active page */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #D97706;
+            color: black !important;
+            border-color: #D97706;
+        }
+
+        /* Hover effect */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #D97706;
+            color: white !important;
+            border-color: #D97706;
+        }
+
+        select[name="datatable_length"] {
+            padding-right: 2rem !important;
+        }
+    </style>
+
+
 </x-app-layout>
