@@ -40,64 +40,48 @@
                             </tr>
                         </thead>
 
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach ($logs as $log)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-2 text-center align-middle">
-                                        <input type="checkbox" name="selected_logs[]" value="{{ $log->id }}" class="form-checkbox h-4 w-4 text-indigo-600">
-                                    </td>
-                                    <td class="px-4 py-2 text-center align-middle">{{ $log->user->name }}</td>
-                                    <td class="px-4 py-2 text-center align-middle">
-                                        @php
-                                            $id = $log->pdfEdit->id;
-                                            $badgeClasses = match ($id) {
-                                                1 => 'bg-purple-100 text-purple-800',
-                                                2 => 'bg-red-100 text-red-800',
-                                                3 => 'bg-yellow-100 text-yellow-800',
-                                                4 => 'bg-orange-100 text-orange-800',
-                                                5 => 'bg-blue-100 text-blue-800',
-                                                6 => 'bg-green-100 text-green-800',
-                                                7 => 'bg-pink-100 text-pink-800',
-                                                8 => 'bg-indigo-100 text-indigo-800',
-                                                9 => 'bg-emerald-100 text-emerald-800',
-                                                10 => 'bg-teal-100 text-teal-800',
-                                                default => 'bg-gray-100 text-gray-800'
-                                            };
-                                        @endphp
-
-                                        <span class="inline-flex items-center justify-center rounded-full text-xs font-medium px-3 py-1 {{ $badgeClasses }}">
-                                            {{ $log->pdfEdit->name }}
-                                        </span>
-                                    </td>
-
-
-
-                                    <td class="px-4 py-2 text-center align-middle">
-                                        @if ($log->accessed_via === 'frontend')
-                                            <span class="inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 w-20 text-center">
-                                                Frontend
-                                            </span>
-                                        @elseif ($log->accessed_via === 'api')
-                                            <span class="inline-flex items-center justify-center rounded-full bg-green-100 text-green-800 text-xs font-medium px-3 py-1 w-18 text-center">
-                                                API
-                                            </span>
-                                        @endif
-                                    </td>
-                                    <td class="px-4 py-2 text-center align-middle"">{{ \Carbon\Carbon::parse($log->used_at)->format('d. m. Y') }}</td>
-                                    <td class="px-4 py-2 text-center align-middle">{{ \Carbon\Carbon::parse($log->used_at)->format('H:i') }}</td>
-                                </tr>
+                        <tbody>
+                            @foreach($logs as $log)
+                            <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <td class="px-4 py-2">
+                                    <input type="checkbox" name="selected_logs[]" value="{{ $log->id }}" class="row-checkbox w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500">
+                                </td>
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white">
+                                    {{ $log->user->name }}
+                                </td>
+                                <td class="px-4 py-2">
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded">
+                                        {{ $log->pdfEdit->name }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-2">{{ $log->accessed_via }}</td>
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($log->used_at)->format('d.m.Y') }}</td>
+                                <td class="px-4 py-2">{{ \Carbon\Carbon::parse($log->used_at)->format('H:i') }}</td>
+                            </tr>
                             @endforeach
                         </tbody>
+
 
                         </table>
                     </div>
                         <div class="mt-4">
                             {{ $logs->links() }}
                         </div>
-
+                        <livewire:hello-world />
+                        <livewire:users-table />
                     </div>
                 </div>
             </div>
         </div>
     </form>
+
+    <script>
+        const selectAll = document.getElementById('checkbox-all');
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+
+        selectAll.addEventListener('change', function () {
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+        });
+    </script>
+
 </x-app-layout>

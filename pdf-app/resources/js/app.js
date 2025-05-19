@@ -1,11 +1,11 @@
 import './bootstrap';
 
-import Alpine from 'alpinejs';
 
 import 'flowbite';
 
 import "./generateAPI";
 
-window.Alpine = Alpine;
+// import Alpine from 'alpinejs';
+// window.Alpine = Alpine;
 
-Alpine.start();
+// Alpine.start();

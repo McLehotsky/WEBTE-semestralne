@@ -1,0 +1,6 @@
+{
+    "livewire-tables::core.Search" : "Search...",
+    "livewire-tables::core.Columns": "Columns",
+    "livewire-tables::core.results": "Showing :count results",
+    "livewire-tables::core.BulkActions": "Bulk Actions"
+}

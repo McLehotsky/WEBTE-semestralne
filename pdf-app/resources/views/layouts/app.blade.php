@@ -26,7 +26,11 @@
                 }
             }
         </style>
-
+      
+          @livewireStyles
+          @rappasoftTableStyles
+          <!-- Adds any relevant Third-Party Styles (Used for DateRangeFilter (Flatpickr) and NumberRangeFilter) -->
+          @rappasoftTableThirdPartyStyles
     </head>
     @if(session('status'))
     <script>
@@ -56,6 +60,10 @@
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
         <script src="https://unpkg.com/@flowbite/icons"></script>
+        @livewireScripts
+        @rappasoftTableScripts 
+        <!-- Adds any relevant Third-Party Scripts (e.g. Flatpickr) -->
+        @rappasoftTableThirdPartyScripts
     </body>
 <!-- Flowbite SVG ikonky -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
