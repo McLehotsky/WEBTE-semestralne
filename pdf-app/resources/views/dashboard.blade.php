@@ -5,7 +5,7 @@
         </h1>
     </x-slot>
 
-    <div class="py-12 bg-gray-100 min-h-screen">
+    <div class="py-12 bg-transparent min-h-screen">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white p-8 rounded-xl shadow-lg">
                 <h3 class="text-2xl font-semibold text-gray-800 mb-6">{{__('dashboard.subtitle')}}</h3>

@@ -109,6 +109,11 @@
 
     "button.exportPDF": "Exportovať do PDF",
     "button.docs": "Zobraziť dokumentáciu",
+  
+    "welcome.title1": "PDF, ktoré si",
+    "welcome.title2": "uvaríš podľa seba!",
+
+    "welcome.text": "Spájaj, rozdeľuj, šifruj – bez inštalácie a zbytočností. Začni používať prihlásením alebo si jednoducho vytvor nový účet.",
 
     "drop-area.choosePDF": "Vyberte PDF",
     "drop-area.dragPDF": "... alebo sem presuňte súbor",
