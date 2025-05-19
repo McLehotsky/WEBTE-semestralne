@@ -18,8 +18,8 @@
 
                     <div id="drop-area"
                         class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                        <p class="text-xl font-semibold text-gray-600 mb-4">Choose file</p>
-                        <p class="text-gray-400">... or drop a file here</p>
+                        <p class="text-xl font-semibold text-gray-600 mb-4">{{__('drop-area.choosePDF')}}</p>
+                        <p class="text-gray-400">{{__('drop-area.dragPDF')}}</p>
                     </div>
 
                     <div id="file-name" class="mt-4 text-sm text-gray-600"></div>
@@ -36,16 +36,26 @@
                             type="password"
                             name="password"
                             id="password"
-                            placeholder="Enter password to encrypt"
+                            placeholder="{{__('encrypt.password')}}"
                             class="block w-full pl-12 pr-4 py-2 border border-gray-300 rounded-md focus:ring-amber-500 focus:border-amber-500"
                             required>
                     </div>
 
                     <button type="submit"
                         class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
-                        Encrypt PDF
+                        {{__('button.encrypt')}}
                     </button>
                 </form>
+
+                <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+                    <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+                        <h2 class="text-xl font-semibold mb-4">{{__('error-modal.title')}}</h2>
+                        <p id="errorMessage" class="text-gray-700 mb-4">{{__('error-modal.subtitle.vague')}}</p>
+                        <div class="text-right">
+                            <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">{{__('error.modal.close')}}</button>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="result" class="mt-6 hidden">
                     <div class="flex items-center bg-white border border-gray-300 rounded-md px-4 py-3 shadow-sm justify-center">
@@ -55,8 +65,8 @@
                                 clip-rule="evenodd" />
                         </svg>
                         <span class="text-sm text-gray-800">
-                            PDF was successfully encrypted. <a id="download-link" href="#" download="encrypted.pdf"
-                                class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
+                            {{__('encrypt.encrypted')}} <a id="download-link" href="#" download="encrypted.pdf"
+                                class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadPDF')}}</a>
                         </span>
                     </div>
                 </div>
@@ -89,7 +99,7 @@
                 fileInput.files = e.dataTransfer.files;
                 fileName.innerText = e.dataTransfer.files[0].name;
             } else {
-                showModal("Nahraj presne 1 PDF súbor.");
+                showModal("{{__('error-modal.one-file')}}");
             }
         });
 
@@ -118,7 +128,7 @@
                 link.href = data.url.replace(/\\/g, '');
                 document.getElementById('result').classList.remove('hidden');
             } else {
-                showModal("Šifrovanie zlyhalo.");
+                showModal("{{__('error-modal.subtitle')}}");
             }
         });
 

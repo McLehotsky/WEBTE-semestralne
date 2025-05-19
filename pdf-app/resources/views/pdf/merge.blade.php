@@ -21,15 +21,15 @@
 
                     <div id="drop-area"
                         class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                        <p class="text-xl font-semibold text-gray-600 mb-4">Choose files</p>
-                        <p class="text-gray-400">... or drop files here</p>
+                        <p class="text-xl font-semibold text-gray-600 mb-4">{{__('merge.drop-area.choosePDF')}}</p>
+                        <p class="text-gray-400">{{__('merge.drop-area.dragPDF')}}</p>
                     </div>
 
                     <div id="file-names" class="mt-4 text-sm text-gray-600"></div>
 
                     <button type="submit"
                         class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
-                        Merge PDF
+                        {{__('button.merge')}}
                     </button>
                 </form>
 
@@ -39,8 +39,8 @@
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                         </svg>
                         <span class="text-sm text-gray-800">
-                            PDF bol úspešne zlúčený. 
-                            <a id="download-link" href="#" download="merged.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">Stiahnuť PDF</a>
+                            {{__('merge.merged')}} 
+                            <a id="download-link" href="#" download="merged.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadPDF')}}</a>
                         </span>
                     </div>
                 </div>
@@ -48,15 +48,13 @@
                 <!-- Modal -->
                 <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                     <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                        <h2 class="text-xl font-semibold mb-4">Chyba</h2>
-                        <p id="errorMessage" class="text-gray-700 mb-4">Niečo sa pokazilo.</p>
+                        <h2 class="text-xl font-semibold mb-4">{{__('error-modal.title')}}</h2>
+                        <p id="errorMessage" class="text-gray-700 mb-4">{{__('error-modal.subtitle.vague')}}</p>
                         <div class="text-right">
-                            <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Zavrieť</button>
+                            <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">{{__('error.modal.close')}}</button>
                         </div>
                     </div>
                 </div>
-
-                <p class="mt-6 text-xs text-gray-400">By using this function, you accept our <a href="#" class="underline">terms of service</a>.</p>
             </div>
         </div>
     </div>
@@ -93,7 +91,7 @@
 
         function assignFiles(files) {
             if (files.length !== 2) {
-                showModal("Vyber prosím presne 2 PDF súbory.");
+                showModal("{{__('error-modal.merge.no-file')}}");
                 return;
             }
         
@@ -130,7 +128,7 @@
             link.href = data.url.replace(/\\/g, '');
             document.getElementById('result').classList.remove('hidden');
         } else {
-            showModal("Zlúčenie PDF zlyhalo.");
+            showModal("{{__('error-modal.subtitle')}}");
         }
     });
 
