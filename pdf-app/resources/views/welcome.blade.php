@@ -11,7 +11,9 @@
         <h1 class="text-xl font-semibold text-gray-800">Moja aplikácia</h1>
         <div class="space-x-4">
             <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900">Prihlásiť sa</a>
-            <a href="{{ route('register') }}" class="text-sm text-blue-600 hover:underline">Registrovať sa</a>
+            <a href="{{ route('register') }}" class="text-sm text-yellow-700 hover:text-yellow-800 hover:underline">
+                Registrovať sa
+            </a>
         </div>
     </nav>
 
