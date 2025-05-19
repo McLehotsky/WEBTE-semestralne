@@ -28,14 +28,14 @@
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-amber-700 shadow-sm focus:ring-amber-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-gray-600">{{ __('login.remember') }}</span>
             </label>
         </div>
 
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                    {{ __('login.forgot-password') }}
                 </a>
             @endif
 
@@ -43,7 +43,7 @@
             type="submit"
             class="ms-3 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
 >
-                {{ __('Log in') }}
+                {{ __('button.login') }}
             </button>
         </div>
 
@@ -52,12 +52,12 @@
     <!-- Fixed the placement outside of the form -->
     <!-- Added the Register button -->
      <div class="flex items-center justify-end mt-4">
-        <span class="text-sm text-gray-600 me-2">No account yet?</span>
+        <span class="text-sm text-gray-600 me-2">{{__('login.not-registered')}}</span>
         <a href="{{ route('register') }}">
             <button
             type="submit"
             class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
-                    {{ __('Register') }}
+                    {{ __('button.register') }}
              </button>
          </a>
     </div>
@@ -69,7 +69,7 @@
                 <path d="M119.2 324.4c-10.5-31-10.5-64.4 0-95.4V158.4H29.6c-42.3 83.8-42.3 182.7 0 266.5l89.6-70.5z" fill="#FBBC05"/>
                 <path d="M272 107.7c39.7 0 75.4 13.7 103.6 40.4l77.8-77.8C405.8 24.2 344.6 0 272 0 163.9 0 73.9 62 29.6 149.3l89.6 70.6C140.8 155.6 201 107.7 272 107.7z" fill="#EA4335"/>
             </svg>
-            Prihlásiť sa cez Google
+            {{__('button.login-with-google')}}
         </a>
     </div>
 
