@@ -27,7 +27,7 @@
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-amber-700 shadow-sm focus:ring-amber-500" name="remember">
                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
         </div>
@@ -39,9 +39,12 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <button
+            type="submit"
+            class="ms-3 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+>
                 {{ __('Log in') }}
-            </x-primary-button>
+            </button>
         </div>
 
     </form>
@@ -51,9 +54,11 @@
      <div class="flex items-center justify-end mt-4">
         <span class="text-sm text-gray-600 me-2">No account yet?</span>
         <a href="{{ route('register') }}">
-            <x-primary-button class="ms-2">
+            <button
+            type="submit"
+            class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
                     {{ __('Register') }}
-             </x-primary-button>
+             </button>
          </a>
     </div>
     <div class="flex justify-center mt-4">
