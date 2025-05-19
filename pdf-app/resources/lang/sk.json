@@ -179,5 +179,34 @@
 
     "downloadPDF": "Stiahnuť PDF",
     "downloadTXT": "Stiahnuť TXT",
-    "downloadZIP": "Stiahnuť ZIP"
+    "downloadZIP": "Stiahnuť ZIP",
+
+    "login": "Prihlásenie",
+    "register": "Registrácia",
+
+    "login.email": "E-mail",
+    "login.password": "Heslo",
+    "login.remember": "Zapamätať si ma",
+    "login.forgot-password": "Zabudli ste heslo?",
+    "button.login": "Prihlásiť sa",
+    "login.not-registered": "Nemáte účet?",
+    "button.register": "Zaregistrovať sa",
+    "button.login-with-google": "Prihlásiť sa cez Google",
+
+    "register.registered": "Už máte účet?",
+    "register.name": "Meno",
+    "register.email": "E-mail",
+    "register.password": "Heslo",
+    "register.password-confirmation": "Potvrdenie hesla",
+
+    "forgot-password.title": "Zabudli ste heslo? Žiadny problém. Stačí, ak zadáte svoju e-mailovú adresu a pošleme vám odkaz na obnovenie hesla, pomocou ktorého si zvolíte nové heslo.",
+    "button.reset-password": "Obnoviť heslo",
+    
+    "confirm-password.title": "Toto je zabezpečená časť aplikácie. Pred pokračovaním potvrďte svoje heslo.",
+    "button.confirm-password": "Potvrdiť heslo",
+
+    "verify-email.title": "Ďakujeme za registráciu! Predtým než začnete, overte svoju e-mailovú adresu kliknutím na odkaz, ktorý sme vám práve poslali. Ak ste e-mail nedostali, radi vám ho pošleme znova.",
+    "verify-email.check-email": "Nový overovací odkaz bol odoslaný na e-mailovú adresu, ktorú ste zadali pri registrácii.",
+    "button.resend-verification": "Znovu odoslať overovací e-mail",
+    "button.logout": "Odhlásiť sa"
 }
