@@ -113,7 +113,7 @@
 
                     // Flex container pre oba
                     $('div.dataTables_wrapper .dataTables_length, div.dataTables_wrapper .dataTables_filter')
-                        .wrapAll('<div class="flex items-center justify-between gap-6 mb-4"></div>');
+                        .wrapAll('<div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 mb-4"></div>');
                 },
                 responsive: true,
                 scrollX: true
