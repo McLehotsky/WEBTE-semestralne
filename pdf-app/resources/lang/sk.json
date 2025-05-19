@@ -108,6 +108,71 @@
     "guide.history.subtitle": "Zobrazí históriu všetkých akcií vykonaných používateľom alebo históriu prihlásení. Admin môže zmazať históriu alebo jednotlivé akcie.",
 
     "button.exportPDF": "Exportovať do PDF",
-    "button.docs": "Zobraziť dokumentáciu"
+    "button.docs": "Zobraziť dokumentáciu",
 
+    "drop-area.choosePDF": "Vyberte PDF",
+    "drop-area.dragPDF": "... alebo sem presuňte súbor",
+  
+    "add-page.drop-area.choose-basePDF": "Vyberte PDF, do ktorého chcete pridať stranu",
+    "add-page.drop-area.choose-pagePDF": "Vyberte PDF, ktoré chcete pridať",
+    "add-page.basePDF-preview": "Náhľad základného PDF",
+    "add-page.pagePDF-preview": "Náhľad pridávanej strany",
+    "button.add-page": "Pridať stranu",
+    "add-page.added": "Strana bola úspešne pridaná",
+    
+    "decrypt.drop-area.choosePDF": "Vyberte zašifrovaný PDF",
+    "decrypt.password": "Zadajte heslo na dešifrovanie",
+    "button.decrypt": "Dešifrovať",
+    "decrypt.decrypted": "PDF bolo úspešne dešifrované",
+  
+    "delete-page.select-pages": "Vyberte strany na odstránenie",
+    "button.delete": "Odstrániť vybrané strany",
+    "delete-page.deleted": "Strany boli úspešne odstránené",
+  
+    "encrypt.password": "Zadajte heslo na zašifrovanie",
+    "button.encrypt": "Zašifrovať",
+    "encrypt.encrypted": "PDF bolo úspešne zašifrované",
+  
+    "button.extract-text": "Extrahovať text",
+    "extract-text.extracted": "Text bol úspešne extrahovaný",
+  
+    "extract-pages.select-pages": "Vyberte strany na extrahovanie",
+    "button.extract": "Extrahovať vybrané strany",
+    "extract-pages.extracted": "Strany boli úspešne extrahované",
+  
+    "merge.drop-area.choosePDF": "Vyberte PDF súbory na zlúčenie",
+    "merge.drop-area.dragPDF": "... alebo sem presuňte súbory",
+    "button.merge": "Zlúčiť vybrané PDF",
+    "merge.merged": "PDF súbory boli úspešne zlúčené",
+  
+    "reorder-pages.reorder": "Zmeniť poradie strán",
+    "button.reorder": "Zmeniť poradie",
+    "reorder-pages.reordered": "Poradie strán bolo úspešne zmenené",
+  
+    "rotate-pages.rotate": "Otočiť strany",
+    "button.rotate": "Otočiť",
+    "rotate-pages.rotated": "Strany boli úspešne otočené",
+  
+    "split-pages.chunk-size": "Počet strán v jednej časti",
+    "button.split": "Rozdeliť",
+    "split-pages.split": "PDF bolo úspešne rozdelené",
+  
+    "error-modal.title": "Chyba",
+    "error-modal.subtitle.vague": "Vyskytla sa chyba.",
+    "error-modal.subtitle": "Počas spracovania požiadavky došlo k chybe.",
+    "error.modal.close": "Zavrieť",
+    "error-modal.one-file": "Nahrajte presne 1 PDF súbor.",
+  
+    "error-modal.add-page.no-file-no-position": "Nahrajte súbor a určte pozíciu pretiahnutím.",
+    "error-modal.delete.select-pages": "Vyberte aspoň jednu stranu na odstránenie.",
+    "error-modal.encrypt.no-file": "Nahrajte presne 1 šifrovaný PDF súbor.",
+    "error-modal.extract.select-pages": "Vyberte aspoň jednu stranu na extrahovanie.",
+    "error-modal.merge.no-file": "Nahrajte presne 2 súbory na zlúčenie.",
+    "error-modal.reorder.no-file-no-position": "Nahrajte súbor a zmeňte poradie strán.",
+    "error-modal.rotate.no-file-no-position": "Nahrajte súbor a určte uhol otočenia.",
+    "error-modal.split.upload-file-and-specify-chunk-size": "Nahrajte súbor a určte veľkosť časti.",
+
+    "downloadPDF": "Stiahnuť PDF",
+    "downloadTXT": "Stiahnuť TXT",
+    "downloadZIP": "Stiahnuť ZIP"
 }
