@@ -109,5 +109,11 @@
     "guide.history.subtitle": "Displays the history of all user-performed actions or login history. Admin can delete full history or specific entries.",
     
     "button.exportPDF": "Export to PDF",
-    "button.docs": "View Documentation"
+    "button.docs": "View Documentation",
+
+    "welcome.title1": "PDF you",
+    "welcome.title2": "cook your way!",
+
+    "welcome.text": "Merge, split, encrypt – no installation, no hassle. Get started by logging in or simply creating a new account."
+
 }
