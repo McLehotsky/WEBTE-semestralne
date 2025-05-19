@@ -19,7 +19,7 @@
                 <path stroke="#FBBF24" stroke-linecap="round" stroke-linejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" />
             </svg>
             CookedPDF</h1>
-        <div class="space-x-4">
+        <div class="space-x-4 mx-2">
             <a href="{{ route('login') }}" class="text-sm text-gray-700 hover:text-gray-900">{{__('login')}}</a>
             <a href="{{ route('register') }}" class="text-sm text-yellow-700 hover:text-yellow-800 hover:underline">
                 {{__('register')}}
