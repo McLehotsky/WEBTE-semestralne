@@ -111,6 +111,11 @@
     "button.exportPDF": "Export to PDF",
     "button.docs": "View Documentation",
 
+    "welcome.title1": "PDF you",
+    "welcome.title2": "cook your way!",
+
+    "welcome.text": "Merge, split, encrypt – no installation, no hassle. Get started by logging in or simply creating a new account.",
+
     "drop-area.choosePDF": "Choose a PDF",
     "drop-area.dragPDF": "... or drop a file here",
 

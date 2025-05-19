@@ -32,35 +32,30 @@
             </label>
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center justify-between mt-4">
+            <a href="{{ route('register') }}">
+                <button
+                type="submit"
+                class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+                        {{ __('button.register') }}
+                 </button>
+            </a>
+            <div>
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('login.forgot-password') }}
                 </a>
             @endif
-
             <button
             type="submit"
-            class="ms-3 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
->
+            class="ms-3 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
                 {{ __('button.login') }}
             </button>
+            </div>
         </div>
 
     </form>
 
-    <!-- Fixed the placement outside of the form -->
-    <!-- Added the Register button -->
-     <div class="flex items-center justify-end mt-4">
-        <span class="text-sm text-gray-600 me-2">{{__('login.not-registered')}}</span>
-        <a href="{{ route('register') }}">
-            <button
-            type="submit"
-            class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
-                    {{ __('button.register') }}
-             </button>
-         </a>
-    </div>
     <div class="flex justify-center mt-4">
         <a href="{{ route('google.login') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-100">
             <svg class="w-5 h-5 mr-2" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
