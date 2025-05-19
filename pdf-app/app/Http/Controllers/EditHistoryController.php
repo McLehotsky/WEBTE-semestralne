@@ -18,7 +18,7 @@ class EditHistoryController extends Controller
 
     public function bulkAction(Request $request)
 {
-    $selected = $request->input('selected_logs', []);
+    $selected = $request->input('selected', []);
     $action = $request->input('action');
 
     if (empty($selected)) {
