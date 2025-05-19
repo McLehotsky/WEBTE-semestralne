@@ -25,11 +25,16 @@
         </div>
 
         <!-- Remember Me -->
-        <div class="block mt-4">
+        <div class="flex justify-between mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-amber-700 shadow-sm focus:ring-amber-500" name="remember">
                 <span class="ms-2 text-sm text-gray-600">{{ __('login.remember') }}</span>
             </label>
+            @if (Route::has('password.request'))
+                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
+                    {{ __('login.forgot-password') }}
+                </a>
+            @endif
         </div>
 
         <div class="flex items-center justify-between mt-4">
@@ -40,18 +45,11 @@
                         {{ __('button.register') }}
                  </button>
             </a>
-            <div>
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('login.forgot-password') }}
-                </a>
-            @endif
             <button
             type="submit"
             class="ms-3 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
                 {{ __('button.login') }}
             </button>
-            </div>
         </div>
 
     </form>
