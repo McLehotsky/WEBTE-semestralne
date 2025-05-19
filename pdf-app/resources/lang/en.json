@@ -109,5 +109,20 @@
     "guide.history.subtitle": "Displays the history of all user-performed actions or login history. Admin can delete full history or specific entries.",
     
     "button.exportPDF": "Export to PDF",
-    "button.docs": "View Documentation"
+    "button.docs": "View Documentation",
+
+    "datatable": {
+        "search": "Search:",
+        "lengthMenu": "Show _MENU_ entries",
+        "zeroRecords": "No matching records found",
+        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+        "infoEmpty": "No entries to show",
+        "infoFiltered": "(filtered from _MAX_ total entries)",
+        "paginate": {
+            "first": "First",
+            "last": "Last",
+            "next": "Next",
+            "previous": "Previous"
+        }
+    }
 }

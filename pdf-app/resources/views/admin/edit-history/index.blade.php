@@ -107,8 +107,18 @@
     </form>
 
     <script>
+        const dtLang = @json(__('datatable'));
         $(document).ready(function () {
             const table = $('#datatable').DataTable({
+                language: {
+                    search: dtLang.search,
+                    lengthMenu: dtLang.lengthMenu,
+                    zeroRecords: dtLang.zeroRecords,
+                    info: dtLang.info,
+                    infoEmpty: dtLang.infoEmpty,
+                    infoFiltered: dtLang.infoFiltered,
+                    paginate: dtLang.paginate
+                },
                 initComplete: function () {
 
                     // Flex container pre oba
