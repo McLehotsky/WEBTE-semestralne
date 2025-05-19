@@ -1,6 +1,6 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-xl font-semibold text-amber-700 mb-1 flex gap-2">
             {{ __('profile.information.title') }}
         </h2>
 
@@ -48,7 +48,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('button.save') }}</x-primary-button>
+            <button class="bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow">{{ __('button.save') }}</button>
 
             @if (session('status') === 'profile-updated')
                 <p

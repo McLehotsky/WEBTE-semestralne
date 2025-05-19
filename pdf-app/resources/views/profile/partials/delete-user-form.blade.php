@@ -1,6 +1,6 @@
 <section class="space-y-6">
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-xl font-semibold text-amber-700 mb-1 flex gap-2">
             {{ __('profile.delete.title') }}
         </h2>
 
