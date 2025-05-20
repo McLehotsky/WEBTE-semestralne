@@ -37,10 +37,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/api-token/generate', [ApiKeyController::class, 'store'])->name('api-token.generate');
 
-    // Google Authentication Routes
-    Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
-
     // Added Static Pages
     Route::view('/guide', 'guide.index')->name('guide');
     Route::view('/documentation', 'documentation')->name('documentation');
@@ -109,6 +105,9 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Google Authentication Routes
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 require __DIR__.'/auth.php';
 
 use Illuminate\Support\Facades\File;
