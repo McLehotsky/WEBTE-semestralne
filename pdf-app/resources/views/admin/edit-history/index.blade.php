@@ -134,11 +134,24 @@
             });
 
             // checkbox "označ všetkých" iba pre viditeľné riadky
+            let globalSelected = new Set();
+
             $('#select-all').on('click', function () {
-                // $('#select-all').prop('checked', this.checked);
                 const rows = table.rows({ search: 'applied' }).nodes();
-                $('input[type="checkbox"]', rows).prop('checked', this.checked);
+                const isChecked = this.checked;
+
+                $('input[type="checkbox"]', rows).each(function () {
+                    $(this).prop('checked', isChecked);
+
+                    const val = $(this).val();
+                    if (isChecked) {
+                        globalSelected.add(val);
+                    } else {
+                        globalSelected.delete(val);
+                    }
+                });
             });
+
 
             table.on('search.dt', function () {
                 // odznačí všetky checkboxy vo všetkých riadkoch
@@ -146,6 +159,21 @@
 
                 // odznačí aj hlavný select-all checkbox
                 $('#select-all').prop('checked', false);
+            });
+
+            $('form').on('submit', function () {
+
+                // Odstráni staré hidden inputy (ak sú)
+                $('input[name="selected[]"][type="hidden"]').remove();
+
+                // Pridá nové hidden inputy pre každý selected[] záznam
+                for (const val of globalSelected) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'selected[]',
+                        value: val
+                    }).appendTo('form');
+                }
             });
         });
     </script>

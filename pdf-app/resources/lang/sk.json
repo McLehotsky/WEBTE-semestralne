@@ -134,6 +134,7 @@
     "history.page.usage.table.date": "Dátum", 
     "history.page.usage.table.time": "Čas",
     "history.page.login.table.city": "Mesto",
-    "history.page.login.table.country": "Štát"
+    "history.page.login.table.country": "Štát",
+    "history.page.usage.export.filename": "Historia_pouzitia_:date.csv"
 
 }

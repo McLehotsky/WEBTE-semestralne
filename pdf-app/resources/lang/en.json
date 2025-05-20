@@ -135,5 +135,6 @@
     "history.page.usage.table.date": "Date", 
     "history.page.usage.table.time": "Time",
     "history.page.login.table.city": "City",
-    "history.page.login.table.country": "Country"
+    "history.page.login.table.country": "Country",
+    "history.page.usage.export.filename": "Usage_history_:date.csv"
 }
