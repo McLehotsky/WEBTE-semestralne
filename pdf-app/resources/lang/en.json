@@ -124,5 +124,16 @@
             "next": "Next",
             "previous": "Previous"
         }
-    }
+    },
+
+    "history.page.usage.title": "Function Usage History",
+    "history.page.usage.export.button": "Export CSV",
+    "history.page.usage.delete.button": "Delete Selected",
+    "history.page.usage.table.user": "User",
+    "history.page.usage.table.used": "Used",
+    "history.page.usage.table.type": "Via",
+    "history.page.usage.table.date": "Date", 
+    "history.page.usage.table.time": "Time",
+    "history.page.login.table.city": "City",
+    "history.page.login.table.country": "Country"
 }

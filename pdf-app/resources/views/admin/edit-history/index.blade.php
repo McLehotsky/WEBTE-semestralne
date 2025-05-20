@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            História použitia funkcií
+            {{__('history.page.usage.title')}}
         </h2>
     </x-slot>
 
@@ -19,11 +19,11 @@
             <div class="flex flex-col sm:flex-row justify-center sm:justify-start items-center gap-4">
                 <button type="submit" name="action" value="export"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded text-center">
-                    Exportovať CSV
+                    {{__('history.page.usage.export.button')}}
                 </button>
                 <button type="submit" name="action" value="delete"
                     class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded text-center">
-                    Vymazať vybrané
+                    {{__('history.page.usage.delete.button')}}
                 </button>
             </div>
         </div>
@@ -43,13 +43,13 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-center">
                                         <input type="checkbox" id="select-all"
-                                        class="w-5 h-5 rounded-md border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:ring-2 appearance-none checked:bg-indigo-600 checked:border-transparent">
+                                        class="w-5 h-5 rounded-md border-gray-300 text-amber-500 focus:ring-amber-400 focus:ring-2 appearance-none checked:bg-amber-500 checked:border-transparent">
                                     </th>
-                                    <th class="px-4 py-2 text-center">Používateľ</th>
-                                    <th class="px-4 py-2 text-center">Použité</th>
-                                    <th class="px-4 py-2 text-center">Cez</th>
-                                    <th class="px-4 py-2 text-center">Dátum</th>
-                                    <th class="px-4 py-2 text-center">Čas</th>
+                                    <th class="px-4 py-2 text-center">{{__('history.page.usage.table.user')}}</th>
+                                    <th class="px-4 py-2 text-center">{{__('history.page.usage.table.used')}}</th>
+                                    <th class="px-4 py-2 text-center">{{__('history.page.usage.table.type')}}</th>
+                                    <th class="px-4 py-2 text-center">{{__('history.page.usage.table.date')}}</th>
+                                    <th class="px-4 py-2 text-center">{{__('history.page.usage.table.time')}}</th>
                                 </tr>
                             </thead>
 
@@ -58,7 +58,7 @@
                                     <tr class="hover:bg-gray-50">
                                         <td class="px-4 py-2 text-center align-middle">
                                             <input type="checkbox" name="selected[]" value="{{ $log->id }}" 
-                                            class="row-checkbox w-5 h-5 rounded-md border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:ring-2 appearance-none checked:bg-indigo-600 checked:border-transparent">
+                                            class="row-checkbox w-5 h-5 rounded-md border-gray-300 text-amber-500 focus:ring-amber-400 focus:ring-2 appearance-none checked:bg-amber-500 checked:border-transparent">
                                         </td>
                                         <td class="px-4 py-2 text-center align-middle">{{ $log->user->name }}</td>
                                         <td class="px-4 py-2 text-center align-middle">
@@ -110,6 +110,10 @@
         const dtLang = @json(__('datatable'));
         $(document).ready(function () {
             const table = $('#datatable').DataTable({
+                order: [[4, 'desc'], [5, 'desc']],
+                columnDefs: [
+                    { orderable: false, targets: 0 } // zakáže sortovanie pre prvý stĺpec
+                ],
                 language: {
                     search: dtLang.search,
                     lengthMenu: dtLang.lengthMenu,
@@ -131,8 +135,17 @@
 
             // checkbox "označ všetkých" iba pre viditeľné riadky
             $('#select-all').on('click', function () {
+                // $('#select-all').prop('checked', this.checked);
                 const rows = table.rows({ search: 'applied' }).nodes();
                 $('input[type="checkbox"]', rows).prop('checked', this.checked);
+            });
+
+            table.on('search.dt', function () {
+                // odznačí všetky checkboxy vo všetkých riadkoch
+                $('#datatable input[type="checkbox"]').prop('checked', false);
+
+                // odznačí aj hlavný select-all checkbox
+                $('#select-all').prop('checked', false);
             });
         });
     </script>
@@ -142,46 +155,51 @@
         div.dataTables_wrapper .dataTables_paginate {
             display: flex;
             justify-content: center;
-            margin-top: 1rem;
+            margin-top: .775rem;
         }
 
-        /* Base button styling */
+        /* Všetky tlačidlá */
         div.dataTables_wrapper .dataTables_paginate .paginate_button {
             background-color: transparent;
             color: #D97706 !important;
-            border: 1px solid #4B5563; /* Tailwind gray-700 */
+            border: 1px solid transparent;
             padding: 6px 12px;
-            margin: 0 2px;
-            border-radius: 0;
+            border-radius: 9999px; /* full rounded - kruh */
             transition: all 0.2s ease-in-out;
             font-weight: 500;
             min-width: 38px;
             text-align: center;
         }
 
-        /* First and last buttons (← →) */
-        div.dataTables_wrapper .dataTables_paginate .paginate_button:first-child {
-            border-top-left-radius: 12px;
-            border-bottom-left-radius: 12px;
-        }
-
-        div.dataTables_wrapper .dataTables_paginate .paginate_button:last-child {
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
-        }
-
-        /* Active page */
+        /* Aktívna strana */
         div.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            background-color: #D97706;
+            border: 2px solid #D97706 !important;
             color: black !important;
-            border-color: #D97706;
+            background-color: transparent !important;
+            font-weight: 600;
         }
 
-        /* Hover effect */
-        div.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            background-color: #D97706;
-            color: white !important;
-            border-color: #D97706;
+        /* Hover efekt pre neaktívne */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button:not(.current):hover {
+            border: 1px solid #D97706;
+            background-color: transparent;
+            color: #D97706 !important;
+        }
+
+        /* Štýl pre "Previous"/"Next" tlačidlá */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.next {
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 9999px;
+        }
+
+        /* Hover efekt pre "Previous"/"Next" */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
+            background-color: transparent;
+            border: 1px solid #D97706;
+            color: #D97706 !important;
         }
 
         select[name="datatable_length"] {
