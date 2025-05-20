@@ -115,7 +115,7 @@
                     document.getElementById('insert-preview-wrapper').classList.remove('hidden');
                     container.className = 'grid grid-cols-3 gap-4 justify-items-center';
 
-                    const scale = 0.33;
+                    const scale = 0.4;
 
                     for (let i = 1; i <= pdf.numPages; i++) {
                         pdf.getPage(i).then(function (page) {
@@ -212,7 +212,7 @@
                             dropZone.classList.add('bg-amber-100');
 
                             const original = insertPages[pageToInsert];
-                            const scale = 0.33;
+                            const scale = 0.4;
                             const viewport = original.page.getViewport({ scale });
 
                             original.page.getViewport({ scale });
@@ -244,7 +244,7 @@
 
                     container.appendChild(createDropZone(0));
 
-                    const scale = 0.33;
+                    const scale = 0.4;
 
                     for (let i = 1; i <= pdf.numPages; i++) {
                         pdf.getPage(i).then(function (page) {
