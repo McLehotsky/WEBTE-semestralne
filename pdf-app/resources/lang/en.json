@@ -111,6 +111,33 @@
     "button.exportPDF": "Export to PDF",
     "button.docs": "View Documentation",
 
+    "datatable": {
+        "search": "Search:",
+        "lengthMenu": "Show _MENU_ entries",
+        "zeroRecords": "No matching records found",
+        "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+        "infoEmpty": "No entries to show",
+        "infoFiltered": "(filtered from _MAX_ total entries)",
+        "paginate": {
+            "first": "First",
+            "last": "Last",
+            "next": "Next",
+            "previous": "Previous"
+        }
+    },
+
+    "history.page.usage.title": "Function Usage History",
+    "history.page.usage.export.button": "Export CSV",
+    "history.page.usage.delete.button": "Delete Selected",
+    "history.page.usage.table.user": "User",
+    "history.page.usage.table.used": "Used",
+    "history.page.usage.table.type": "Via",
+    "history.page.usage.table.date": "Date", 
+    "history.page.usage.table.time": "Time",
+    "history.page.login.table.city": "City",
+    "history.page.login.table.country": "Country",
+    "history.page.usage.export.filename": "Usage_history_:date.csv",
+
     "welcome.title1": "PDF you",
     "welcome.title2": "cook your way!",
 

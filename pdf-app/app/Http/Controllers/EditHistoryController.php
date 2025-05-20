@@ -18,7 +18,7 @@ class EditHistoryController extends Controller
 
     public function bulkAction(Request $request)
 {
-    $selected = $request->input('selected_logs', []);
+    $selected = $request->input('selected', []);
     $action = $request->input('action');
 
     if (empty($selected)) {
@@ -33,14 +33,19 @@ class EditHistoryController extends Controller
     if ($action === 'export') {
         $logs = EditHistory::with(['user', 'pdfEdit'])->whereIn('id', $selected)->get();
 
-        $csvData = "Používateľ;Čas;Akcia;Cez\n";
+        $csvData = __('history.page.usage.table.user') . ";" . 
+                __('history.page.usage.table.time') . ";" .
+                __('history.page.usage.table.used') . ";" .
+                __('history.page.usage.table.type') . "\n";
         foreach ($logs as $log) {
             $csvData .= "{$log->user->name};{$log->used_at};{$log->pdfEdit->name};{$log->accessed_via}\n";
         }
 
-        return Response::make($csvData, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="vybrane_zaznamy.csv"',
+        $filename = __('history.page.usage.export.filename', ['date' => now()->format('Y-m-d')]);
+
+        return Response::make("\xEF\xBB\xBF" . $csvData, 200, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+            'Content-Disposition' => 'attachment; filename="'. $filename . '"',
         ]);
     }
 
