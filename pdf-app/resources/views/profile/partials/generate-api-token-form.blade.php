@@ -25,7 +25,7 @@
             </button>
             <!-- Input -->
                 <div class="relative w-full">
-                    <input placeholder="__('profile.api.button.placeholder')" 
+                    <input placeholder="{{ __('profile.api.button.placeholder') }}" 
                     id="url-shortener" 
                     type="text" 
                     aria-describedby="helper-text-explanation" 
