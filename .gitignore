@@ -1,3 +1,6 @@
 pdf-app/.env
 api/__pycache__
 api/venv
+api/database.py 
+api/debug.log
+api/log.txt
