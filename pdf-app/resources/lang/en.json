@@ -127,6 +127,7 @@
     },
 
     "history.page.usage.title": "Function Usage History",
+    "history.page.login.title": "User Login History",
     "history.page.usage.export.button": "Export CSV",
     "history.page.usage.delete.button": "Delete Selected",
     "history.page.usage.table.user": "User",
