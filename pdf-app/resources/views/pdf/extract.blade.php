@@ -8,7 +8,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-100 min-h-screen">
+    <div class="py-12 bg-transparent min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-8 rounded-lg shadow-md border-2 border-dashed border-gray-300 text-center">
                 <form id="extract-form" enctype="multipart/form-data">
@@ -17,13 +17,13 @@
 
                     <div id="drop-area"
                          class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                        <p class="text-xl font-semibold text-gray-600 mb-4">Choose a PDF</p>
-                        <p class="text-gray-400">... or drop a file here</p>
+                        <p class="text-xl font-semibold text-gray-600 mb-4">{{__('drop-area.choosePDF')}}</p>
+                        <p class="text-gray-400">{{__('drop-area.dragPDF')}}</p>
                     </div>
 
                     <div id="file-name" class="mt-4 text-sm text-gray-600"></div>
 
-                    <h3 id="select-heading" class="text-lg font-semibold mt-8 mb-2 hidden">Select pages to extract:</h3>
+                    <h3 id="select-heading" class="text-lg font-semibold mt-8 mb-2 hidden">{{__('extract.pages.select-pages')}}</h3>
                     <div id="preview-scroll-wrapper"
                          class="mt-8 max-h-[600px] overflow-y-auto border border-gray-300 rounded-md p-4 shadow-inner bg-white hidden">
                         <div id="preview-container"
@@ -33,17 +33,17 @@
                     <div class="text-center mt-6">
                         <button type="button" id="extract-pages-btn"
                                 class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition hidden">
-                            Extract Selected Pages
+                            {{__('button.extract')}}
                         </button>
                     </div>
 
                     <!-- Modal -->
                     <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                            <h2 class="text-xl font-semibold mb-4">Error</h2>
-                            <p id="errorMessage" class="text-gray-700 mb-4">Something went wrong.</p>
+                            <h2 class="text-xl font-semibold mb-4">{{__('error-modal.title')}}</h2>
+                            <p id="errorMessage" class="text-gray-700 mb-4">{{__('error-modal.subtitle.vague')}}</p>
                             <div class="text-right">
-                                <button id="closeModalBtn" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-800">Close</button>
+                                <button id="closeModalBtn" class="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-800">{{__('error.modal.close')}}</button>
                             </div>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                         </svg>
                         <span class="text-sm text-gray-800">
-                            PDF was successfully extracted.
-                            <a id="download-link" href="#" download="extracted.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">Download PDF</a>
+                            {{__('extract-pages.extracted')}}
+                            <a id="download-link" href="#" download="extracted.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadPDF')}}</a>
                         </span>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                 fileName.innerText = e.dataTransfer.files[0].name;
                 loadPDF(fileInput.files[0]);
             } else {
-                showModal("Please select exactly 1 PDF file.");
+                showModal("{{__('error-modal.one-file')}}");
             }
         });
 
@@ -163,7 +163,7 @@
                 .join(',');
                 
             if (!selected) {
-                showModal("Vyber aspoň jednu stranu.");
+                showModal("{{__('error-modal.extract.select-pages')}}");
                 return;
             }
         
@@ -187,11 +187,11 @@
                     link.href = cleanUrl;
                     resultBox.classList.remove('hidden');
                 } else {
-                    showModal("Niečo sa pokazilo.");
+                    showModal("{{__('error-modal.subtitle.vague')}}");
                 }
             })
             .catch(() => {
-                showModal("Chyba počas extrakcie.");
+                showModal("{{__('error-modal.subtitle')}}");
             });
         });
 

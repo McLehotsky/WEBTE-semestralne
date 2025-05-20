@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-100 min-h-screen">
+    <div class="py-12 bg-transparent min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-8 rounded-lg shadow-md border-2 border-dashed border-gray-300 text-center">
                 <form id="add-page-form" enctype="multipart/form-data">
@@ -14,13 +14,13 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div id="dropBase"
                             class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                            <p class="text-xl font-semibold text-gray-600 mb-4">Vyber cieľový PDF súbor, do ktorého sa bude pridávať</p>
-                            <p class="text-gray-400">... alebo sem presuň súbor</p>
+                            <p class="text-xl font-semibold text-gray-600 mb-4">{{__('add-page.drop-area.choose-basePDF')}}</p>
+                            <p class="text-gray-400">{{__('drop-area.dragPDF')}}</p>
                         </div>
                         <div id="drop-insert"
                              class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                            <p class="text-xl font-semibold text-gray-600 mb-4">Vyber PDF z ktorého sa bude brať</p>
-                            <p class="text-gray-400">... alebo sem presuň súbor</p>
+                            <p class="text-xl font-semibold text-gray-600 mb-4">{{__('add-page.drop-area.choose-pagePDF')}}</p>
+                            <p class="text-gray-400">{{__('drop-area.dragPDF')}}</p>
                         </div>
                     </div>
                     
@@ -28,12 +28,12 @@
                     <div id="base-file-name" class="mt-4 text-sm text-gray-600"></div>
 
                     <div id="base-preview-wrapper" class="mt-8 hidden">
-                        <h3 class="text-lg font-semibold mb-2">Náhľad cieľového PDF:</h3>
+                        <h3 class="text-lg font-semibold mb-2">{{__('add-page.basePDF-preview')}}</h3>
                         <div id="base-preview-container" class="flex justify-center"></div>
                     </div>
 
                     <div id="insert-preview-wrapper" class="mt-8 hidden">
-                        <h3 class="text-lg font-semibold mb-2">Náhľad PDF, z ktorého berieme stranu:</h3>
+                        <h3 class="text-lg font-semibold mb-2">{{__('add-page.pagePDF-preview')}}</h3>
                         <div id="insert-preview-container" class="flex justify-center"></div>
                     </div>
                     
@@ -47,7 +47,7 @@
 
                     <button type="button" id="add-page-btn"
                             class="mt-6 bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
-                        Pridať stránku
+                        {{__('button.add-page')}}
                     </button>
 
                     <div id="result" class="mt-6 hidden">
@@ -56,18 +56,18 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
                             <span class="text-sm text-gray-800">
-                                Stránka bola úspešne pridaná.
-                                <a id="download-link" href="#" download="added.pdf" class="text-amber-600 font-medium underline ml-1">Download PDF</a>
+                                {{__('add-page.added')}}
+                                <a id="download-link" href="#" download="added.pdf" class="text-amber-600 font-medium underline ml-1">{{__('downloadPDF')}}</a>
                             </span>
                         </div>
                     </div>
 
                     <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                            <h2 class="text-xl font-semibold mb-4">Chyba</h2>
-                            <p id="errorMessage" class="text-gray-700 mb-4">Niečo sa pokazilo.</p>
+                            <h2 class="text-xl font-semibold mb-4">{{__('error-modal.title')}}</h2>
+                            <p id="errorMessage" class="text-gray-700 mb-4">{{__('error-modal.subtitle.vague')}}</p>
                             <div class="text-right">
-                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Close</button>
+                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">{{__('error.modal.close')}}</button>
                             </div>
                         </div>
                     </div>
@@ -285,7 +285,7 @@
             const position = positionInput.value;
     
             if (!base || !insert || position === '') {
-                showModal("Prosím vložte oba PDF súbory a vyberte pozíciu presunutím.");
+                showModal("{{__('error-modal.add-page.no-file-no-position') }}");
                 return;
             }
         
@@ -308,10 +308,10 @@
                     link.href = data.url.replace(/\\/g, '');
                     document.getElementById('result').classList.remove('hidden');
                 } else {
-                    showModal("Niečo sa pokazilo.");
+                    showModal("{{__('error-modal.subtitle.vague')}}");
                 }
             })
-            .catch(() => showModal("Chyba pri pridávaní stránky."));
+            .catch(() => showModal("{{__('error-modal.subtitle')}}"));
         });
 
         function showModal(message) {

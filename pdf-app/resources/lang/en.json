@@ -136,5 +136,105 @@
     "history.page.usage.table.time": "Time",
     "history.page.login.table.city": "City",
     "history.page.login.table.country": "Country",
-    "history.page.usage.export.filename": "Usage_history_:date.csv"
+    "history.page.usage.export.filename": "Usage_history_:date.csv",
+
+    "welcome.title1": "PDF you",
+    "welcome.title2": "cook your way!",
+
+    "welcome.text": "Merge, split, encrypt – no installation, no hassle. Get started by logging in or simply creating a new account.",
+
+    "drop-area.choosePDF": "Choose a PDF",
+    "drop-area.dragPDF": "... or drop a file here",
+
+    "add-page.drop-area.choose-basePDF": "Choose a PDF to add a page to",
+    "add-page.drop-area.choose-pagePDF": "Choose a PDF to add",
+    "add-page.basePDF-preview": "Base PDF preview",
+    "add-page.pagePDF-preview": "Page PDF preview",
+    "button.add-page": "Add page",
+    "add-page.added": "Page added successfully",
+
+    "decrypt.drop-area.choosePDF": "Choose encrypted PDF",
+    "decrypt.password": "Enter decryption password",
+    "button.decrypt": "Decrypt",
+    "decrypt.decrypted": "PDF decrypted successfully",
+
+    "delete-page.select-pages": "Select pages to delete",
+    "button.delete": "Delete selected pages",
+    "delete-page.deleted": "Pages deleted successfully",
+
+    "encrypt.password": "Enter encryption password",
+    "button.encrypt": "Encrypt",
+    "encrypt.encrypted": "PDF encrypted successfully",
+
+    "button.extract-text": "Extract text",
+    "extract-text.extracted": "Text extracted successfully",
+
+    "extract-pages.select-pages": "Select pages to extract",
+    "button.extract": "Extract selected pages",
+    "extract-pages.extracted": "Pages extracted successfully",
+
+    "merge.drop-area.choosePDF": "Choose PDFs to merge",
+    "merge.drop-area.dragPDF": "... or drop files here",
+    "button.merge": "Merge selected PDFs",
+    "merge.merged": "PDFs merged successfully",
+
+    "reorder-pages.reorder": "Reorder pages",
+    "button.reorder": "Reorder",
+    "reorder-pages.reordered": "Pages reordered successfully",
+
+    "rotate-pages.rotate": "Rotate pages",
+    "button.rotate": "Rotate",
+    "rotate-pages.rotated": "Pages rotated successfully",
+
+    "split-pages.chunk-size": "Number of pages per chunk",
+    "button.split": "Split",
+    "split-pages.split": "PDF split successfully",
+
+    "error-modal.title": "Error",
+    "error-modal.subtitle.vague": "An error occurred.",
+    "error-modal.subtitle": "An error occurred while processing your request.",
+    "error.modal.close": "Close",
+    "error-modal.one-file": "Please upload exactly 1 PDF file.",
+
+    "error-modal.add-page.no-file-no-position": "Please upload a file and specify the position by dragging.",
+    "error-modal.delete.select-pages": "Please select at least one page to delete.",
+    "error-modal.encrypt.no-file": "Please upload exactly 1 encrypted PDF.",
+    "error-modal.extract.select-pages": "Please select at least one page to extract.",
+    "error-modal.merge.no-file": "Please upload exactly 2 files to merge.",
+    "error-modal.reorder.no-file-no-position": "Please upload a file and reorder the pages.",
+    "error-modal.rotate.no-file-no-position": "Please upload a file and specify the rotation angle.",
+    "error-modal.split.upload-file-and-specify-chunk-size": "Please upload a file and specify chunk size.",
+
+    "downloadPDF": "Download PDF",
+    "downloadTXT": "Download TXT",
+    "downloadZIP": "Download ZIP",
+
+    "login": "Login",
+    "register": "Register",
+
+    "login.email": "Email",
+    "login.password": "Password",
+    "login.remember": "Remember me",
+    "login.forgot-password": "Forgot your password?",
+    "button.login": "Log in",
+    "login.not-registered": "Don't have an account?",
+    "button.register": "Register",
+    "button.login-with-google": "Log in with Google",
+
+    "register.registered": "Already registered?",
+    "register.name": "Name",
+    "register.email": "Email",
+    "register.password": "Password",
+    "register.password-confirmation": "Confirm Password",
+
+    "forgot-password.title": "Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.",
+    "button.reset-password": "Reset Password",
+    
+    "confirm-password.title": "This is a secure area of the application. Please confirm your password before continuing.",
+    "button.confirm-password": "Confirm Password",
+
+    "verify-email.title": "Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.",
+    "verify-email.check-email": "A new verification link has been sent to the email address you provided during registration.",
+    "button.resend-verification": "Resend Verification Email",
+    "button.logout": "Log Out"
 }

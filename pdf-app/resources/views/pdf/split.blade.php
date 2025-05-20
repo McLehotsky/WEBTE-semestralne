@@ -8,7 +8,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12 bg-gray-100 min-h-screen">
+    <div class="py-12 bg-transparent min-h-screen">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-8 rounded-lg shadow-md border-2 border-dashed border-gray-300 text-center">
                 <form id="split-form" enctype="multipart/form-data">
@@ -17,15 +17,15 @@
 
                     <div id="drop-area"
                          class="cursor-pointer p-8 border-2 border-dashed border-gray-400 rounded-lg bg-gray-50 hover:bg-gray-100 transition">
-                        <p class="text-xl font-semibold text-gray-600 mb-4">Choose a PDF</p>
-                        <p class="text-gray-400">... or drop a file here</p>
+                        <p class="text-xl font-semibold text-gray-600 mb-4">{{__('drop-area.choosePDF')}}</p>
+                        <p class="text-gray-400">{{__('drop-area.dragPDF')}}</p>
                     </div>
 
                     <div id="file-name" class="mt-4 text-sm text-gray-600"></div>
 
                     <div class="mt-6">
                         <label for="chunk_size" class="block font-medium text-sm text-gray-700 mb-1">
-                            Number of pages per chunk:
+                            {{__('split-pages.chunk-size')}}
                         </label>
                         <input type="number" name="chunk_size" id="chunk_size"
                                class="border border-gray-300 rounded-md p-2 w-full" min="1" required>
@@ -39,7 +39,7 @@
                     <div class="text-center mt-6">
                         <button type="button" id="split-btn"
                                 class="bg-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-6 rounded transition">
-                            Split PDF
+                            {{__('button.split')}}
                         </button>
                     </div>
 
@@ -49,18 +49,18 @@
                                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414L8.414 15l-4.121-4.121a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                             </svg>
                             <span class="text-sm text-gray-800">
-                                PDF was successfully split.
-                                <a id="download-link" href="#" download="split.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">Download ZIP</a>
+                                {{__('split-pages.split')}}
+                                <a id="download-link" href="#" download="split.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadZIP')}}</a>
                             </span>
                         </div>
                     </div>
 
                     <div id="errorModal" class="fixed z-50 inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
                         <div class="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
-                            <h2 class="text-xl font-semibold mb-4">Error</h2>
-                            <p id="errorMessage" class="text-gray-700 mb-4">Something went wrong.</p>
+                            <h2 class="text-xl font-semibold mb-4">{{__('error-modal.title')}}</h2>
+                            <p id="errorMessage" class="text-gray-700 mb-4">{{__('error-modal.subtitle.vague')}}</p>
                             <div class="text-right">
-                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Close</button>
+                                <button id="closeModalBtn" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">{{__('error.modal.close')}}</button>
                             </div>
                         </div>
                     </div>
@@ -96,7 +96,7 @@
                 fileName.innerText = e.dataTransfer.files[0].name;
                 loadPDF(fileInput.files[0]);
             } else {
-                showModal("Please select exactly 1 PDF file.");
+                showModal("{{__('error-modal.one-file')}}");
             }
         });
 
@@ -158,7 +158,7 @@
             const chunkSize = chunkInput.value;
 
             if (!file || !chunkSize) {
-                showModal("Please upload a file and specify chunk size.");
+                showModal("{{__('error-modal.split.upload-file-and-specify-chunk-size')}}");
                 return;
             }
 
@@ -180,10 +180,10 @@
                     link.href = data.url.replace(/\\/g, '');
                     document.getElementById('result').classList.remove('hidden');
                 } else {
-                    showModal("Something went wrong.");
+                    showModal("{{__('error-modal.subtitle.vague')}}");
                 }
             })
-            .catch(() => showModal("Something went wrong during split."));
+            .catch(() => showModal("{{__('error-modal.subtitle')}}"));
         });
 
         function showModal(message) {
