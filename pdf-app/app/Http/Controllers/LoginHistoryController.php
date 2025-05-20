@@ -8,7 +8,7 @@ class LoginHistoryController extends Controller
 {
     public function index()
     {
-        $logs = LoginHistory::with('user')->orderByDesc('logged_in_at')->paginate(15);
+        $logs = LoginHistory::with('user')->orderByDesc('logged_in_at')->get();
         return view('admin.login-history.index', compact('logs'));
     }
 }

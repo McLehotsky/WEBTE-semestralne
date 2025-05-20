@@ -12,7 +12,7 @@ class EditHistoryController extends Controller
 {
     public function index()
     {
-        $logs = EditHistory::with(['user', 'pdfEdit'])->orderByDesc('used_at')->paginate(15);
+        $logs = EditHistory::with(['user', 'pdfEdit'])->orderByDesc('used_at')->get();
         return view('admin.edit-history.index', compact('logs'));
     }
 

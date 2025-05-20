@@ -9,8 +9,8 @@
     </x-slot>
 
     {{-- ✅ CDN jQuery + DataTables --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-    <!-- <link href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" rel="stylesheet"> -->
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> --}}
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.tailwindcss.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
@@ -131,9 +131,14 @@
                     // Flex container pre oba
                     $('div.dataTables_wrapper .dataTables_length, div.dataTables_wrapper .dataTables_filter')
                         .wrapAll('<div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 mb-4"></div>');
+
+                    // Dolný riadok: info + paginate
+                    $('div.dataTables_wrapper .dataTables_info, div.dataTables_wrapper .dataTables_paginate')
+                        .wrapAll('<div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 mt-4"></div>');
                 },
                 responsive: true,
-                scrollX: true
+                scrollX: true,
+                paging: true
             });
 
             // checkbox "označ všetkých" iba pre viditeľné riadky
@@ -182,61 +187,117 @@
     </script>
 
     <style>
-        /* Parent wrapper styling */
+        /* ✅ Spodný panel s info a pagination bližšie k tabuľke */
+        div.dataTables_wrapper .dataTables_info,
+        div.dataTables_wrapper .dataTables_paginate {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            margin-top: 0 !important;
+        }
+
+        /* ✅ Flexbox pre rozloženie info doľava a stránkovania doprava */
+        div.dataTables_wrapper .dataTables_info {
+            flex: 1 1 auto;
+            text-align: left;
+        }
+
+        div.dataTables_wrapper .dataTables_paginate {
+            flex: 1 1 auto;
+            justify-content: flex-end;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0 !important;
+        }
+
+        /* ✅ Flex aj pre horný panel (length/filter) */
+        div.dataTables_wrapper .dataTables_length,
+        div.dataTables_wrapper .dataTables_filter,
+        div.dataTables_wrapper .dataTables_info,
         div.dataTables_wrapper .dataTables_paginate {
             display: flex;
-            justify-content: center;
-            margin-top: .775rem;
+            align-items: center;
         }
 
-        /* Všetky tlačidlá */
+        /* ✅ Štýl stránkovacích tlačidiel */
         div.dataTables_wrapper .dataTables_paginate .paginate_button {
-            background-color: transparent;
+            background-color: transparent !important;
             color: #D97706 !important;
-            border: 1px solid transparent;
-            padding: 6px 12px;
-            border-radius: 9999px; /* full rounded - kruh */
+            border: 2px solid transparent;
+            padding: 0.5rem 0.75rem;
+            border-radius: 9999px;
             transition: all 0.2s ease-in-out;
             font-weight: 500;
-            min-width: 38px;
+            min-width: 40px;
             text-align: center;
+            cursor: pointer;
         }
 
-        /* Aktívna strana */
+        /* Hover efekt */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: #fef3c7;
+            border-color: #D97706;
+        }
+
+        /* Aktívna stránka */
         div.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-            border: 2px solid #D97706 !important;
-            color: black !important;
-            background-color: transparent !important;
+            background-color: #D97706 !important;
+            color: white !important;
+            border-color: #D97706 !important;
             font-weight: 600;
+            cursor: default;
         }
 
-        /* Hover efekt pre neaktívne */
-        div.dataTables_wrapper .dataTables_paginate .paginate_button:not(.current):hover {
+        /* 🚫 Neaktívne tlačidlo (napr. „Predošlá“ na prvej stránke) */
+        div.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: default;
+        }
+
+        /* Zaoblený select */
+        div.dataTables_wrapper .dataTables_length select {
             border: 1px solid #D97706;
-            background-color: transparent;
-            color: #D97706 !important;
+            border-radius: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            background-color: white;
+            color: #374151;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' fill='gray' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.061l-4.24 4.25a.75.75 0 01-1.06 0l-4.24-4.25a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1rem;
         }
 
-        /* Štýl pre "Previous"/"Next" tlačidlá */
-        div.dataTables_wrapper .dataTables_paginate .paginate_button.previous,
-        div.dataTables_wrapper .dataTables_paginate .paginate_button.next {
-            font-weight: 500;
-            padding: 6px 12px;
-            border-radius: 9999px;
-        }
-
-        /* Hover efekt pre "Previous"/"Next" */
-        div.dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover,
-        div.dataTables_wrapper .dataTables_paginate .paginate_button.next:hover {
-            background-color: transparent;
+        /* Zaoblený vyhľadávací input */
+        div.dataTables_wrapper .dataTables_filter input {
             border: 1px solid #D97706;
-            color: #D97706 !important;
+            border-radius: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            background-color: white;
+            color: #374151;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            outline: none;
+            transition: border-color 0.2s ease-in-out;
         }
 
+        div.dataTables_wrapper .dataTables_filter input:focus,
+        div.dataTables_wrapper .dataTables_length select:focus {
+            border-color: #fb923c; /* svetlejšia oranžová pri focus */
+            box-shadow: 0 0 0 1px #fb923c;
+        }
+
+        /* Voliteľné: select padding */
         select[name="datatable_length"] {
             padding-right: 2rem !important;
         }
     </style>
+
+
 
 
 </x-app-layout>
