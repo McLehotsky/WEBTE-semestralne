@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -18,7 +19,15 @@ class PdfAddPageController extends Controller
 
         $url = config('pdf.base_url') . '/add-page';
 
-        $response = Http::attach(
+        $user = $request->user();
+
+        $apiToken = optional($user->frontendToken())->key;
+        Log::warning('Toto je varovanie', ['url' => $url]);
+
+        $response = Http::withHeaders([
+                'x-api-key' => $apiToken,
+        ])
+        ->attach(
             'base',
             file_get_contents($request->file('base')->getRealPath()),
             $request->file('base')->getClientOriginalName()
@@ -30,6 +39,10 @@ class PdfAddPageController extends Controller
             'position' => $request->input('position'),
         ]);
 
+        Log::info('Odpoveď z /add-page', [
+            'status' => $response->status(),
+            'body' => $response->body(), // textové telo odpovede
+        ]);
         if (!$response->ok()) {
             return response()->json(['error' => 'Add page failed'], 500);
         }
