@@ -38,12 +38,8 @@
         </div>
 
         <div class="flex items-center justify-between mt-4">
-            <a href="{{ route('register') }}">
-                <button
-                type="submit"
-                class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+            <a href="{{ route('register') }}" class="ms-2 bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
                         {{ __('button.register') }}
-                 </button>
             </a>
             <button
             type="submit"
