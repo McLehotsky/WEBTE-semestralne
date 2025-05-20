@@ -17,7 +17,7 @@
                 </button>
                 
                 <button
-                onclick="window.open('https://node23.webte.fei.stuba.sk/api/pdf/docs', '_blank')"
+                onclick="window.open('https://node77.webte.fei.stuba.sk/api/pdf/docs', '_blank')"
                 class="bg-amber-600 hover:bg-amber-800 text-white font-semibold py-2 px-4 rounded shadow"
                 >
                     {{__('button.docs')}}
