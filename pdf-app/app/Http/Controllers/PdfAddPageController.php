@@ -16,6 +16,8 @@ class PdfAddPageController extends Controller
             'position' => 'required|integer|min:0',
         ]);
 
+        $url = config('pdf.base_url') . '/add-page';
+
         $response = Http::attach(
             'base',
             file_get_contents($request->file('base')->getRealPath()),
@@ -24,7 +26,7 @@ class PdfAddPageController extends Controller
             'insert',
             file_get_contents($request->file('insert')->getRealPath()),
             $request->file('insert')->getClientOriginalName()
-        )->asMultipart()->post('https://node23.webte.fei.stuba.sk/api/pdf/add-page', [
+        )->asMultipart()->post($url, [
             'position' => $request->input('position'),
         ]);
 

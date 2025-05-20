@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,7 @@ class PdfExtractController extends Controller
         $pages = $request->input('pages');
         
         $url = config('pdf.base_url') . '/extract';
+        Log::warning('Toto je varovanie', ['url' => $url]);
 
         $user = $request->user();
 
@@ -39,6 +41,7 @@ class PdfExtractController extends Controller
             'pages' => $pages,
         ]);
 
+        Log::warning('Toto je varovanie', ['response' => $response->body()]);
         if (!$response->ok()) {
             return response()->json(['error' => 'Extraction failed'], 500);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -15,8 +16,9 @@ class PdfTextExtractController extends Controller
         ]);
 
         $file = $request->file('file');
-
+        
         $url = config('pdf.base_url') . '/extract-text';
+        Log::warning('Toto je varovanie', ['url' => $url]);
 
         $user = $request->user();
         $apiToken = optional($user->frontendToken())->key;
@@ -32,6 +34,7 @@ class PdfTextExtractController extends Controller
         ->asMultipart()
         ->post($url);
 
+        Log::warning('Toto je varovanie', ['response' => $response->body()]);
         if (!$response->ok()) {
             return response()->json(['error' => 'Text extraction failed'], 500);
         }
