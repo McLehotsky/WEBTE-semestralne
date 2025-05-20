@@ -27,7 +27,7 @@
                     <div id="preview-scroll-wrapper"
                          class="mt-8 max-h-[600px] overflow-y-auto border border-gray-300 rounded-md p-4 shadow-inner bg-white hidden">
                         <div id="preview-container"
-                             class="grid grid-cols-3 gap-4 justify-items-center"></div>
+                             class="flex flex-wrap gap-4 justify-center"></div>
                     </div>
 
                     <div class="text-center mt-6">
@@ -113,7 +113,7 @@
 
                     for (let i = 0; i < pdf.numPages; i++) {
                         pdf.getPage(i + 1).then(function (page) {
-                            const scale = 0.5;
+                            const scale = 0.4;
                             const viewport = page.getViewport({ scale });
                             const canvas = document.createElement('canvas');
                             const context = canvas.getContext('2d');
