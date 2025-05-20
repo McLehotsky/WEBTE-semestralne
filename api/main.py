@@ -70,6 +70,12 @@ def custom_openapi():
         description=app.description,
         routes=app.routes,
     )
+
+    # 🔧 Dôležité! Pridaj správny server base path
+    openapi_schema["servers"] = [
+        {"url": "/api/pdf", "description": "Reverse proxy base path"}
+    ]
+
     openapi_schema["components"]["securitySchemes"] = {
         "APIKeyHeader": {
             "type": "apiKey",
@@ -77,6 +83,8 @@ def custom_openapi():
             "name": "x-api-key"
         }
     }
+
+
     # Pridaj security ku všetkým operáciám
     for path in openapi_schema["paths"].values():
         for operation in path.values():
