@@ -1,0 +1,1 @@
+URL = "mysql+pymysql://user:pass@mysql:3306/pdfapp"
