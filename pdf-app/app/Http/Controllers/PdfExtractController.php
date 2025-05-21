@@ -21,7 +21,7 @@ class PdfExtractController extends Controller
         $pages = $request->input('pages');
         
         $url = config('pdf.base_url') . '/extract';
-        Log::warning('Toto je varovanie', ['url' => $url]);
+        // Log::warning('Toto je varovanie', ['url' => $url]);
 
         $user = $request->user();
 
@@ -41,7 +41,7 @@ class PdfExtractController extends Controller
             'pages' => $pages,
         ]);
 
-        Log::warning('Toto je varovanie', ['response' => $response->body()]);
+        // Log::warning('Toto je varovanie', ['response' => $response->body()]);
         if (!$response->ok()) {
             return response()->json(['error' => 'Extraction failed'], 500);
         }

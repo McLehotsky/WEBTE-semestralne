@@ -50,7 +50,7 @@
                             </svg>
                             <span class="text-sm text-gray-800">
                                 {{__('split-pages.split')}}
-                                <a id="download-link" href="#" download="split.pdf" class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadZIP')}}</a>
+                                <a id="download-link" href="#" class="text-amber-600 font-medium underline ml-1" target="_blank">{{__('downloadZIP')}}</a>
                             </span>
                         </div>
                     </div>
