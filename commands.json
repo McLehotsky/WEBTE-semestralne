@@ -9,6 +9,7 @@
       "docker compose exec laravel php artisan storage:link": "linkne storage aby sa dali stahovat pdf-ka",
       "docker-compose exec laravel php artisan key:generate": "Vygeneruje nový APP_KEY pre Laravel",
       "docker compose exec laravel php artisan config:cache": "Vyčistí a cachene konfiguráciu",
+      "docker-compose exec laravel cp .env.example .env": "Skopíruje .env.example do .env",
       "docker compose exec laravel php artisan db:seed": "Spustí seedovanie databázy",
       "docker compose exec laravel php artisan tinker": "Spustí interaktívnu Laravel konzolu",
       "docker compose exec laravel composer install": "Nainštaluje Composer balíky v Laraveli",
